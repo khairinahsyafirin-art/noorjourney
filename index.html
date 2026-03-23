@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noor Journey - Daily Deen Companion</title>
+    <title>Noor Journey - Perjalanan Ibadahmu</title>
     <style>
         * {
             margin: 0;
@@ -11,544 +11,566 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #012248;
-            --gold: #d1b48c;
-            --light-bg: #f8f9fa;
-            --white: #ffffff;
-            --text-dark: #1a1a1a;
-            --text-light: #6c757d;
-            --success: #28a745;
-            --shadow: rgba(1, 34, 72, 0.1);
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #012248 0%, #024080 100%);
+            background: linear-gradient(135deg, #012248 0%, #024073 100%);
             min-height: 100vh;
-            padding: 0;
-            overflow-x: hidden;
+            padding-bottom: 80px;
         }
 
-        .app-container {
+        .container {
             max-width: 428px;
             margin: 0 auto;
-            background: var(--light-bg);
+            background: white;
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
         }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, var(--primary) 0%, #024080 100%);
+            background: linear-gradient(135deg, #012248 0%, #024073 100%);
             color: white;
-            padding: 20px 20px 30px;
+            padding: 20px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 200px;
-            height: 200px;
-            background: rgba(209, 180, 140, 0.1);
-            border-radius: 50%;
-        }
-
-        .logo-container {
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo-text {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary);
-            font-family: 'Georgia', serif;
-        }
-
-        .app-title {
+        .header h1 {
             font-size: 24px;
-            font-weight: 600;
             margin-bottom: 5px;
-            letter-spacing: 1px;
         }
 
-        .app-subtitle {
-            font-size: 13px;
+        .header p {
+            font-size: 14px;
             opacity: 0.9;
-            color: var(--gold);
         }
 
-        .date-info {
-            margin-top: 15px;
-            font-size: 13px;
-            opacity: 0.85;
+        /* Content */
+        .content {
+            padding: 20px;
+            padding-bottom: 100px;
         }
 
-        /* Page Container */
+        /* Page */
         .page {
             display: none;
-            padding: 0 0 100px;
-            animation: fadeIn 0.3s ease-in;
         }
 
         .page.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Prayer Countdown */
-        .prayer-countdown {
-            background: white;
-            margin: -20px 16px 16px;
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 12px var(--shadow);
-            position: relative;
-            z-index: 2;
+        /* Countdown Timer */
+        .countdown-card {
+            background: linear-gradient(135deg, #012248 0%, #024073 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .countdown-label {
-            font-size: 13px;
-            color: var(--text-light);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .countdown-prayer-name {
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 16px;
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
         }
 
         .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 16px;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
 
-        .countdown-unit {
-            background: var(--light-bg);
-            padding: 16px;
-            border-radius: 12px;
-            min-width: 80px;
+        .countdown-next {
+            font-size: 16px;
+            opacity: 0.8;
         }
 
-        .countdown-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary);
-            font-family: 'Georgia', serif;
-        }
-
-        .countdown-text {
-            font-size: 11px;
-            color: var(--text-light);
-            margin-top: 4px;
-            text-transform: uppercase;
-        }
-
-        .location-info {
-            font-size: 12px;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        /* Content Section */
-        .content-section {
-            padding: 16px;
-        }
-
-        .section {
+        /* Journey Stats Card */
+        .journey-card {
             background: white;
-            border-radius: 16px;
+            border: 2px solid #012248;
+            border-radius: 15px;
             padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 8px var(--shadow);
+            margin-bottom: 20px;
         }
 
-        .section-header {
+        .streak-section {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .streak-number {
+            font-size: 48px;
+            font-weight: bold;
+            color: #012248;
+        }
+
+        .streak-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .weekly-dots {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .day-dot {
+            text-align: center;
+            flex: 1;
+        }
+
+        .day-label {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .dot {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 0 auto;
+            background: #e0e0e0;
+        }
+
+        .dot.completed {
+            background: #d1b48c;
+        }
+
+        .weekly-summary {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .weekly-summary div {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .weekly-summary div:before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            color: #d1b48c;
+        }
+
+        /* Prayer List */
+        .prayer-section {
+            margin-bottom: 30px;
         }
 
         .section-title {
             font-size: 18px;
-            font-weight: 600;
-            color: var(--primary);
+            font-weight: bold;
+            color: #012248;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
         }
 
-        .section-subtitle {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 4px;
-        }
-
-        /* Prayer Times List */
-        .prayer-list {
-            display: grid;
-            gap: 10px;
+        .section-title:before {
+            content: "";
+            width: 4px;
+            height: 20px;
+            background: #d1b48c;
+            margin-right: 10px;
         }
 
         .prayer-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            padding: 14px;
-            background: var(--light-bg);
-            border-radius: 10px;
-            transition: all 0.3s;
         }
 
-        .prayer-item.current {
-            background: linear-gradient(135deg, var(--primary) 0%, #024080 100%);
-            color: white;
-            box-shadow: 0 4px 8px var(--shadow);
-        }
-
-        .prayer-name {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        .prayer-time {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .prayer-check {
-            width: 26px;
-            height: 26px;
-            border: 2px solid var(--text-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .prayer-item.current .prayer-check {
-            border-color: white;
-        }
-
-        .prayer-check.checked {
-            background: var(--success);
-            border-color: var(--success);
-        }
-
-        .prayer-check.checked::after {
-            content: '✓';
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        /* Tracker Grid */
-        .tracker-grid {
-            display: grid;
-            gap: 10px;
-        }
-
-        .tracker-item {
-            display: flex;
-            align-items: center;
-            padding: 14px;
-            background: var(--light-bg);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tracker-item:hover {
-            background: #e9ecef;
-            transform: translateX(4px);
-        }
-
-        .tracker-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--gold) 0%, #c9a572 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-right: 12px;
-            flex-shrink: 0;
-        }
-
-        .tracker-info {
+        .prayer-info {
             flex: 1;
         }
 
-        .tracker-name {
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-dark);
+        .prayer-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #012248;
+            margin-bottom: 3px;
         }
 
-        .tracker-detail {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-top: 2px;
-        }
-
-        .tracker-status {
-            width: 26px;
-            height: 26px;
-            border: 2px solid var(--text-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .tracker-status.done {
-            background: var(--success);
-            border-color: var(--success);
-        }
-
-        .tracker-status.done::after {
-            content: '✓';
-            color: white;
+        .prayer-time {
             font-size: 14px;
-            font-weight: bold;
+            color: #666;
         }
 
-        /* Stats Grid */
-        .stats-grid {
+        .check-circle {
+            width: 30px;
+            height: 30px;
+            border: 2px solid #d1b48c;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .check-circle.checked {
+            background: #d1b48c;
+        }
+
+        .check-circle.checked:after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 16px;
+        }
+
+        /* Activities */
+        .activity-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 0 16px 16px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        .stat-card {
+        .activity-item {
             background: white;
-            padding: 18px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px var(--shadow);
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
             text-align: center;
+            cursor: pointer;
         }
 
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 6px;
-            font-family: 'Georgia', serif;
+        .activity-item.checked {
+            background: #f5f1e8;
+            border-color: #d1b48c;
         }
 
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .activity-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
         }
 
-        /* Quran Page */
+        .activity-name {
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* Surah List */
+        .search-box {
+            margin-bottom: 15px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
         .tabs {
             display: flex;
-            background: white;
-            padding: 6px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            gap: 6px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
         }
 
         .tab {
             flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
-            color: var(--text-light);
-            font-size: 14px;
-            font-weight: 500;
+            padding: 12px;
+            text-align: center;
             cursor: pointer;
-            border-radius: 8px;
-            transition: all 0.3s;
+            color: #666;
+            border-bottom: 2px solid transparent;
         }
 
         .tab.active {
-            background: var(--primary);
-            color: white;
+            color: #012248;
+            border-bottom-color: #d1b48c;
+            font-weight: 600;
         }
 
-        .tab-content {
-            display: none;
+        .surah-list {
+            max-height: 500px;
+            overflow-y: auto;
         }
 
-        .tab-content.active {
-            display: block;
-        }
-
-        .surah-list, .juz-list {
-            display: grid;
-            gap: 10px;
-        }
-
-        .surah-item, .juz-item {
+        .surah-item {
             display: flex;
             align-items: center;
-            padding: 16px;
-            background: white;
-            border-radius: 12px;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 2px 6px var(--shadow);
         }
 
-        .surah-item:hover, .juz-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow);
+        .surah-item:hover {
+            background: #f9f9f9;
         }
 
-        .surah-number, .juz-number {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary) 0%, #024080 100%);
-            color: white;
-            border-radius: 10px;
+        .surah-number {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #d1b48c;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            margin-right: 14px;
-            flex-shrink: 0;
+            font-weight: bold;
+            color: #012248;
+            margin-right: 15px;
         }
 
-        .surah-info, .juz-info {
+        .surah-info {
             flex: 1;
         }
 
-        .surah-name, .juz-name {
+        .surah-name {
             font-size: 16px;
             font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 4px;
+            color: #012248;
+            margin-bottom: 3px;
+        }
+
+        .surah-meta {
+            font-size: 13px;
+            color: #666;
         }
 
         .surah-arabic {
-            font-size: 18px;
-            color: var(--primary);
-            font-family: 'Georgia', serif;
-            margin-bottom: 4px;
+            font-size: 20px;
+            color: #012248;
         }
 
-        .surah-meta, .juz-meta {
-            font-size: 12px;
-            color: var(--text-light);
+        /* Ayah View */
+        .ayah-list {
+            padding: 10px 0;
         }
 
-        /* Charity Page */
-        .charity-hero {
-            background: linear-gradient(135deg, var(--gold) 0%, #c9a572 100%);
-            padding: 30px;
-            border-radius: 16px;
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 16px;
+        .ayah-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
 
-        .charity-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-        }
-
-        .charity-title {
+        .ayah-arabic {
             font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 12px;
+            line-height: 1.8;
+            text-align: right;
+            color: #012248;
+            margin-bottom: 15px;
+            font-family: 'Traditional Arabic', 'Arabic Typesetting', serif;
+        }
+
+        .ayah-translation {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .ayah-number {
+            display: inline-block;
+            background: #d1b48c;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            background: #012248;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        /* Calendar */
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #012248;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-day-label {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .calendar-day:not(.empty):hover {
+            background: #f0f0f0;
+        }
+
+        .calendar-day.today {
+            border: 2px solid #d1b48c;
+            font-weight: bold;
+        }
+
+        .calendar-day.period {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .calendar-day.prayer {
+            background: #012248;
+            color: white;
+        }
+
+        .calendar-day.empty {
+            cursor: default;
+        }
+
+        .calendar-legend {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .legend-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.period {
+            background: #ff6b6b;
+        }
+
+        .legend-dot.prayer {
+            background: #012248;
+        }
+
+        .legend-dot.today {
+            border: 2px solid #d1b48c;
+        }
+
+        .add-period-btn {
+            background: #012248;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 15px;
+        }
+
+        /* Charity */
+        .charity-hero {
+            background: linear-gradient(135deg, #012248 0%, #024073 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
         }
 
         .charity-quote {
-            font-size: 14px;
+            font-size: 16px;
             line-height: 1.6;
-            opacity: 0.9;
+            margin-bottom: 10px;
             font-style: italic;
-            margin-bottom: 8px;
         }
 
         .charity-reference {
-            font-size: 12px;
-            opacity: 0.8;
+            font-size: 13px;
+            opacity: 0.9;
         }
 
         .platform-grid {
             display: grid;
-            gap: 12px;
+            gap: 15px;
         }
 
         .platform-card {
-            display: flex;
-            align-items: center;
-            padding: 18px;
             background: white;
-            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 2px 6px var(--shadow);
-            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .platform-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px var(--shadow);
+            border-color: #d1b48c;
+            box-shadow: 0 4px 12px rgba(1, 34, 72, 0.1);
         }
 
         .platform-logo {
-            width: 56px;
-            height: 56px;
-            background: var(--light-bg);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 14px;
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--primary);
+            width: 50px;
+            height: 50px;
             flex-shrink: 0;
         }
 
@@ -559,187 +581,194 @@
         .platform-name {
             font-size: 16px;
             font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 4px;
+            color: #012248;
+            margin-bottom: 5px;
         }
 
         .platform-desc {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .platform-arrow {
-            font-size: 20px;
-            color: var(--gold);
-        }
-
-        /* Dua & Dhikr Page */
-        .dua-category {
-            margin-bottom: 24px;
-        }
-
-        .category-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 12px;
-            padding-left: 4px;
-        }
-
-        .dua-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .dua-card {
-            padding: 18px;
-            background: white;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 2px 6px var(--shadow);
-        }
-
-        .dua-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        .dua-title {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-        }
-
-        .dua-arabic {
-            font-size: 20px;
-            color: var(--primary);
-            font-family: 'Georgia', serif;
-            line-height: 1.8;
-            margin-bottom: 8px;
-            text-align: right;
-        }
-
-        .dua-transliteration {
             font-size: 13px;
-            color: var(--text-light);
-            font-style: italic;
-            margin-bottom: 6px;
+            color: #666;
         }
 
-        .dua-translation {
-            font-size: 13px;
-            color: var(--text-dark);
-            line-height: 1.5;
-        }
-
-        /* Profile Page */
+        /* Profile */
         .profile-header {
             text-align: center;
             padding: 30px 20px;
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 16px;
+            background: linear-gradient(135deg, #012248 0%, #024073 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
 
         .profile-avatar {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--primary) 0%, #024080 100%);
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 16px;
-            font-size: 42px;
-            color: white;
-            font-weight: 700;
+            font-size: 36px;
+            margin: 0 auto 15px;
         }
 
         .profile-name {
-            font-size: 22px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
 
         .profile-email {
             font-size: 14px;
-            color: var(--text-light);
+            opacity: 0.9;
         }
 
-        .profile-stats {
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .profile-stat {
+        .stat-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
             text-align: center;
         }
 
-        .profile-stat-number {
+        .stat-number {
             font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 4px;
+            font-weight: bold;
+            color: #012248;
+            margin-bottom: 5px;
         }
 
-        .profile-stat-label {
-            font-size: 11px;
-            color: var(--text-light);
+        .stat-label {
+            font-size: 12px;
+            color: #666;
         }
 
-        .profile-menu {
-            display: grid;
-            gap: 2px;
-        }
-
-        .profile-menu-item {
-            display: flex;
-            align-items: center;
-            padding: 18px;
+        .menu-list {
             background: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .profile-menu-item:first-child {
-            border-radius: 12px 12px 0 0;
-        }
-
-        .profile-menu-item:last-child {
-            border-radius: 0 0 12px 12px;
-        }
-
-        .profile-menu-item:hover {
-            background: var(--light-bg);
-        }
-
-        .profile-menu-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--light-bg);
             border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .menu-item {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-right: 14px;
+            justify-content: space-between;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item:hover {
+            background: #f9f9f9;
+        }
+
+        .menu-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-icon {
             font-size: 20px;
         }
 
-        .profile-menu-text {
-            flex: 1;
+        .menu-label {
             font-size: 15px;
-            font-weight: 500;
-            color: var(--text-dark);
+            color: #333;
         }
 
-        .profile-menu-arrow {
-            font-size: 18px;
-            color: var(--text-light);
+        .menu-arrow {
+            color: #999;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 350px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #012248;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #012248;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
         }
 
         /* Bottom Navigation */
@@ -751,1095 +780,1380 @@
             width: 100%;
             max-width: 428px;
             background: white;
-            padding: 12px 20px 20px;
-            box-shadow: 0 -2px 12px var(--shadow);
+            border-top: 1px solid #e0e0e0;
             display: flex;
             justify-content: space-around;
+            padding: 10px 0;
             z-index: 100;
         }
 
         .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
+            flex: 1;
+            text-align: center;
             cursor: pointer;
+            padding: 8px 0;
+            color: #999;
             transition: all 0.3s;
-            color: var(--text-light);
-            padding: 8px 12px;
-            border-radius: 12px;
         }
 
         .nav-item.active {
-            color: var(--primary);
-            background: rgba(1, 34, 72, 0.05);
+            color: #012248;
         }
 
         .nav-icon {
             font-size: 24px;
+            margin-bottom: 3px;
         }
 
         .nav-label {
             font-size: 11px;
-            font-weight: 500;
         }
 
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 40px;
-            color: var(--text-light);
-        }
-
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--light-bg);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Search Box */
-        .search-box {
+        .toggle-switch {
             position: relative;
-            margin-bottom: 16px;
+            width: 50px;
+            height: 26px;
+            background: #e0e0e0;
+            border-radius: 13px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
 
-        .search-input {
-            width: 100%;
-            padding: 14px 44px 14px 16px;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 14px;
-            transition: all 0.3s;
+        .toggle-switch.active {
+            background: #d1b48c;
         }
 
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(1, 34, 72, 0.1);
-        }
-
-        .search-icon {
+        .toggle-slider {
             position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-            font-size: 18px;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: left 0.3s;
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
+        .toggle-switch.active .toggle-slider {
+            left: 27px;
         }
 
-        .empty-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid #f0f0f0;
         }
 
-        .empty-text {
-            font-size: 15px;
-            color: var(--text-light);
+        .setting-item:last-child {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <div class="header">
-            <div class="logo-container">
-                <div class="logo">
-                    <span class="logo-text">nj</span>
-                </div>
-            </div>
-            <h1 class="app-title">Noor Journey</h1>
-            <p class="app-subtitle">Your Daily Deen Companion</p>
-            <div class="date-info" id="dateInfo"></div>
-        </div>
-
-        <!-- HOME PAGE -->
-        <div class="page active" id="homePage">
-            <!-- Prayer Countdown -->
-            <div class="prayer-countdown">
-                <div class="countdown-label">Waktu Sholat Selanjutnya</div>
-                <div class="countdown-prayer-name" id="nextPrayerName">Dzuhur</div>
-                <div class="countdown-timer">
-                    <div class="countdown-unit">
-                        <div class="countdown-number" id="countdownHours">00</div>
-                        <div class="countdown-text">Jam</div>
-                    </div>
-                    <div class="countdown-unit">
-                        <div class="countdown-number" id="countdownMinutes">00</div>
-                        <div class="countdown-text">Menit</div>
-                    </div>
-                    <div class="countdown-unit">
-                        <div class="countdown-number" id="countdownSeconds">00</div>
-                        <div class="countdown-text">Detik</div>
-                    </div>
-                </div>
-                <div class="location-info">
-                    <span class="location-icon">📍</span>
-                    <span id="locationName">Memuat lokasi...</span>
-                </div>
+    <div class="container">
+        <!-- Beranda Page -->
+        <div id="berandaPage" class="page active">
+            <div class="header">
+                <h1>✨ Noor Journey ✨</h1>
+                <p>Perjalanan Ibadahmu Dimulai di Sini</p>
             </div>
 
-            <!-- Stats -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" id="streakCount">0</div>
-                    <div class="stat-label">Day Streak</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="todayPrayerCount">0/5</div>
-                    <div class="stat-label">Sholat Hari Ini</div>
-                </div>
-            </div>
-
-            <!-- Content -->
-            <div class="content-section">
-                <!-- Prayer Times -->
-                <div class="section">
-                    <div class="section-header">
-                        <div>
-                            <h3 class="section-title">Jadwal Sholat</h3>
-                            <p class="section-subtitle">Waktu sholat hari ini</p>
-                        </div>
-                    </div>
-                    <div class="prayer-list" id="prayerList"></div>
+            <div class="content">
+                <!-- Countdown Timer -->
+                <div class="countdown-card">
+                    <div class="countdown-label">Waktu Menuju</div>
+                    <div class="countdown-timer" id="countdownTimer">00:00:00</div>
+                    <div class="countdown-next" id="nextPrayerName">Shubuh</div>
                 </div>
 
-                <!-- Additional Prayers Tracker -->
-                <div class="section">
-                    <div class="section-header">
-                        <div>
-                            <h3 class="section-title">Sholat Sunnah</h3>
-                            <p class="section-subtitle">Tingkatkan ibadah Anda</p>
-                        </div>
+                <!-- Journey Stats -->
+                <div class="journey-card">
+                    <div class="streak-section">
+                        <div class="streak-number" id="streakNumber">0</div>
+                        <div class="streak-label">🔥 Hari Berturut-turut</div>
                     </div>
-                    <div class="tracker-grid" id="sunnahPrayerTracker"></div>
+
+                    <div class="weekly-dots" id="weeklyDots">
+                        <!-- Will be populated by JS -->
+                    </div>
+
+                    <div class="weekly-summary" id="weeklySummary">
+                        <!-- Will be populated by JS -->
+                    </div>
                 </div>
 
-                <!-- Daily Tracker -->
-                <div class="section">
-                    <div class="section-header">
-                        <div>
-                            <h3 class="section-title">Aktivitas Harian</h3>
-                            <p class="section-subtitle">Pantau ibadah harian Anda</p>
-                        </div>
+                <!-- Prayer Section -->
+                <div class="prayer-section">
+                    <div class="section-title">Sholat Wajib</div>
+                    <div id="wajibPrayerList">
+                        <!-- Will be populated by JS -->
                     </div>
-                    <div class="tracker-grid" id="dailyTracker"></div>
+                </div>
+
+                <div class="prayer-section">
+                    <div class="section-title">Sholat Sunnah</div>
+                    <div id="sunnahPrayerList">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Activities -->
+                <div class="prayer-section">
+                    <div class="section-title">Aktivitas Harian</div>
+                    <div class="activity-grid" id="activityGrid">
+                        <!-- Will be populated by JS -->
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- QURAN PAGE -->
-        <div class="page" id="quranPage">
-            <div class="content-section">
-                <div class="section">
-                    <div class="section-header">
-                        <h3 class="section-title">Al-Quran</h3>
+        <!-- Al-Quran Page -->
+        <div id="quranPage" class="page">
+            <div class="header">
+                <h1>📖 Al-Quran</h1>
+                <p>Bacalah dengan Hati yang Khusyuk</p>
+            </div>
+
+            <div class="content">
+                <div class="search-box">
+                    <input type="text" id="surahSearch" placeholder="🔍 Cari surah...">
+                </div>
+
+                <div class="tabs">
+                    <div class="tab active" onclick="switchQuranTab('surah')">Daftar Surah</div>
+                    <div class="tab" onclick="switchQuranTab('juz')">Juz</div>
+                </div>
+
+                <div id="surahListContainer" class="surah-list">
+                    <!-- Will be populated by JS -->
+                </div>
+
+                <div id="juzListContainer" class="surah-list" style="display: none;">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Surah Detail Page -->
+        <div id="surahDetailPage" class="page">
+            <div class="header">
+                <h1 id="surahDetailTitle">Al-Fatihah</h1>
+                <p id="surahDetailMeta">Makkiyah • 7 Ayat</p>
+            </div>
+
+            <div class="content">
+                <button class="back-button" onclick="backToSurahList()">← Kembali</button>
+                <div id="ayahListContainer" class="ayah-list">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Haid Page -->
+        <div id="haidPage" class="page">
+            <div class="header">
+                <h1>🌙 Pelacak Haid</h1>
+                <p>Kelola Siklus dengan Bijak</p>
+            </div>
+
+            <div class="content">
+                <div class="calendar-header">
+                    <button class="nav-btn" onclick="changeMonth(-1)">←</button>
+                    <div class="calendar-title" id="calendarTitle">Januari 2024</div>
+                    <button class="nav-btn" onclick="changeMonth(1)">→</button>
+                </div>
+
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Will be populated by JS -->
+                </div>
+
+                <div class="calendar-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot period"></div>
+                        <span>Haid</span>
                     </div>
+                    <div class="legend-item">
+                        <div class="legend-dot prayer"></div>
+                        <span>Hari Sholat</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot today"></div>
+                        <span>Hari Ini</span>
+                    </div>
+                </div>
+
+                <button class="add-period-btn" onclick="openPeriodModal()">+ Catat Haid</button>
+
+                <!-- Period Guidance Section -->
+                <div class="prayer-section" style="margin-top: 30px;">
+                    <div class="section-title">Bacaan & Panduan</div>
                     
-                    <div class="search-box">
-                        <input type="text" class="search-input" id="quranSearch" placeholder="Cari surah atau juz...">
-                        <span class="search-icon">🔍</span>
+                    <div style="background: #f9f9f9; border-radius: 10px; padding: 20px; margin-bottom: 15px;">
+                        <h3 style="color: #012248; font-size: 16px; margin-bottom: 15px;">💫 Dzikir Saat Haid</h3>
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                            <p style="font-size: 18px; text-align: right; color: #012248; margin-bottom: 10px; line-height: 1.8;">سُبْحَانَ اللهِ وَبِحَمْدِهِ</p>
+                            <p style="font-size: 14px; color: #666;">Subhanallahi wa bihamdihi</p>
+                            <p style="font-size: 13px; color: #999; margin-top: 5px;">(Maha Suci Allah dengan segala puji-Nya)</p>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                            <p style="font-size: 18px; text-align: right; color: #012248; margin-bottom: 10px; line-height: 1.8;">اَسْتَغْفِرُ اللهَ الْعَظِيْمَ</p>
+                            <p style="font-size: 14px; color: #666;">Astaghfirullah al-'adzim</p>
+                            <p style="font-size: 13px; color: #999; margin-top: 5px;">(Aku mohon ampun kepada Allah Yang Maha Agung)</p>
+                        </div>
+
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <p style="font-size: 18px; text-align: right; color: #012248; margin-bottom: 10px; line-height: 1.8;">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللهِ</p>
+                            <p style="font-size: 14px; color: #666;">La hawla wa la quwwata illa billah</p>
+                            <p style="font-size: 13px; color: #999; margin-top: 5px;">(Tiada daya dan kekuatan kecuali dengan Allah)</p>
+                        </div>
                     </div>
 
-                    <div class="tabs">
-                        <button class="tab active" onclick="switchQuranTab('surah')">Surah</button>
-                        <button class="tab" onclick="switchQuranTab('juz')">Juz</button>
+                    <div style="background: #f5f1e8; border-radius: 10px; padding: 20px; margin-bottom: 15px;">
+                        <h3 style="color: #012248; font-size: 16px; margin-bottom: 15px;">📿 Ibadah yang Bisa Dilakukan</h3>
+                        <div style="font-size: 14px; color: #333; line-height: 1.8;">
+                            <div style="margin-bottom: 8px;">✓ Berdzikir dan berdoa</div>
+                            <div style="margin-bottom: 8px;">✓ Mendengarkan Al-Quran</div>
+                            <div style="margin-bottom: 8px;">✓ Membaca buku-buku Islami</div>
+                            <div style="margin-bottom: 8px;">✓ Bersedekah</div>
+                            <div style="margin-bottom: 8px;">✓ Memperbanyak istighfar</div>
+                            <div>✓ Mempelajari ilmu agama</div>
+                        </div>
                     </div>
 
-                    <div class="tab-content active" id="surahTab">
-                        <div class="surah-list" id="surahList"></div>
-                    </div>
-
-                    <div class="tab-content" id="juzTab">
-                        <div class="juz-list" id="juzList"></div>
+                    <div style="background: #fff5f5; border-radius: 10px; padding: 20px;">
+                        <h3 style="color: #012248; font-size: 16px; margin-bottom: 10px;">🌙 Catatan Penting</h3>
+                        <p style="font-size: 14px; color: #666; line-height: 1.6;">
+                            Masa haid adalah waktu istirahat yang Allah berikan. Gunakan waktu ini untuk memperbanyak dzikir, doa, dan mendekatkan diri kepada Allah dengan cara lain. Jangan lupa jaga kebersihan dan kesehatan.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- CHARITY PAGE -->
-        <div class="page" id="charityPage">
-            <div class="content-section">
+        <!-- Sedekah Page -->
+        <div id="sedekahPage" class="page">
+            <div class="header">
+                <h1>💝 Sedekah</h1>
+                <p>Berbagi untuk Kebaikan</p>
+            </div>
+
+            <div class="content">
                 <div class="charity-hero">
-                    <div class="charity-icon">🤲</div>
-                    <h2 class="charity-title">Berbagi Keberkahan</h2>
-                    <p class="charity-quote">
-                        "Perumpamaan orang yang menginfakkan hartanya di jalan Allah seperti sebutir biji yang menumbuhkan tujuh tangkai, pada setiap tangkai ada seratus biji."
-                    </p>
-                    <p class="charity-reference">— QS. Al-Baqarah: 261</p>
+                    <div class="charity-quote">
+                        "Sedekah di waktu subuh dapat menolak bala, sedekah di siang hari menambah rezeki, dan sedekah di malam hari menghapus dosa."
+                    </div>
+                    <div class="charity-reference">HR. Thabrani</div>
                 </div>
 
-                <div class="section">
-                    <div class="section-header">
-                        <div>
-                            <h3 class="section-title">Waktu Terbaik Bersedekah</h3>
-                            <p class="section-subtitle">Keutamaan sedekah di waktu-waktu tertentu</p>
+                <div class="section-title">Pilih Platform</div>
+                <div class="platform-grid">
+                    <div class="platform-card" onclick="openCharity('kitabisa')">
+                        <div class="platform-logo">
+                            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="25" cy="25" r="23" fill="#FF6B35"/>
+                                <text x="25" y="32" text-anchor="middle" fill="white" font-size="20" font-weight="bold">K</text>
+                            </svg>
+                        </div>
+                        <div class="platform-info">
+                            <div class="platform-name">Kitabisa</div>
+                            <div class="platform-desc">Platform donasi terpercaya</div>
                         </div>
                     </div>
-                    <div style="padding: 16px; background: var(--light-bg); border-radius: 12px; margin-bottom: 16px;">
-                        <p style="font-size: 14px; color: var(--text-dark); line-height: 1.6; margin-bottom: 8px;">
-                            ✨ <strong>Sedekah Subuh</strong> - Membuka pintu rezeki di pagi hari
-                        </p>
-                        <p style="font-size: 14px; color: var(--text-dark); line-height: 1.6; margin-bottom: 8px;">
-                            🌙 <strong>Sedekah Jumat</strong> - Hari yang penuh berkah
-                        </p>
-                        <p style="font-size: 14px; color: var(--text-dark); line-height: 1.6;">
-                            🌟 <strong>Sedekah Ramadhan</strong> - Pahala berlipat ganda
-                        </p>
-                    </div>
-                </div>
 
-                <div class="section">
-                    <div class="section-header">
-                        <div>
-                            <h3 class="section-title">Platform Donasi Terpercaya</h3>
-                            <p class="section-subtitle">Pilih platform untuk menyalurkan sedekah</p>
+                    <div class="platform-card" onclick="openCharity('baznas')">
+                        <div class="platform-logo">
+                            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="25" cy="25" r="23" fill="#006838"/>
+                                <text x="25" y="32" text-anchor="middle" fill="white" font-size="20" font-weight="bold">B</text>
+                            </svg>
+                        </div>
+                        <div class="platform-info">
+                            <div class="platform-name">Baznas</div>
+                            <div class="platform-desc">Badan Amil Zakat Nasional</div>
                         </div>
                     </div>
-                    <div class="platform-grid" id="charityPlatforms"></div>
+
+                    <div class="platform-card" onclick="openCharity('dompet-dhuafa')">
+                        <div class="platform-logo">
+                            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="25" cy="25" r="23" fill="#0099CC"/>
+                                <text x="25" y="32" text-anchor="middle" fill="white" font-size="20" font-weight="bold">D</text>
+                            </svg>
+                        </div>
+                        <div class="platform-info">
+                            <div class="platform-name">Dompet Dhuafa</div>
+                            <div class="platform-desc">Lembaga filantropi Islam</div>
+                        </div>
+                    </div>
+
+                    <div class="platform-card" onclick="openCharity('rumah-zakat')">
+                        <div class="platform-logo">
+                            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="25" cy="25" r="23" fill="#FF9F40"/>
+                                <text x="25" y="32" text-anchor="middle" fill="white" font-size="20" font-weight="bold">R</text>
+                            </svg>
+                        </div>
+                        <div class="platform-info">
+                            <div class="platform-name">Rumah Zakat</div>
+                            <div class="platform-desc">Gerakan pemberdayaan umat</div>
+                        </div>
+                    </div>
+
+                    <div class="platform-card" onclick="openCharity('act')">
+                        <div class="platform-logo">
+                            <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="25" cy="25" r="23" fill="#E74C3C"/>
+                                <text x="25" y="32" text-anchor="middle" fill="white" font-size="20" font-weight="bold">A</text>
+                            </svg>
+                        </div>
+                        <div class="platform-info">
+                            <div class="platform-name">ACT (Aksi Cepat Tanggap)</div>
+                            <div class="platform-desc">Lembaga kemanusiaan</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- DUA & DHIKR PAGE -->
-        <div class="page" id="duaPage">
-            <div class="content-section">
-                <div class="section">
-                    <div class="section-header">
-                        <h3 class="section-title">Doa & Dzikir Harian</h3>
-                    </div>
-
-                    <div class="search-box">
-                        <input type="text" class="search-input" id="duaSearch" placeholder="Cari doa...">
-                        <span class="search-icon">🔍</span>
-                    </div>
-
-                    <div id="duaContent"></div>
-                </div>
+        <!-- Profile Page -->
+        <div id="profilPage" class="page">
+            <div class="header">
+                <h1>👤 Profil</h1>
+                <p>Kelola Akun Anda</p>
             </div>
-        </div>
 
-        <!-- PROFILE PAGE -->
-        <div class="page" id="profilePage">
-            <div class="content-section">
+            <div class="content">
                 <div class="profile-header">
-                    <div class="profile-avatar" id="profileAvatar">N</div>
-                    <div class="profile-name" id="profileName">Noor Journey User</div>
-                    <div class="profile-email" id="profileEmail">user@noorjourney.app</div>
-                    
-                    <div class="profile-stats">
-                        <div class="profile-stat">
-                            <div class="profile-stat-number" id="profileStreak">0</div>
-                            <div class="profile-stat-label">Streak</div>
-                        </div>
-                        <div class="profile-stat">
-                            <div class="profile-stat-number" id="profilePrayers">0</div>
-                            <div class="profile-stat-label">Sholat</div>
-                        </div>
-                        <div class="profile-stat">
-                            <div class="profile-stat-number" id="profileDuas">0</div>
-                            <div class="profile-stat-label">Doa</div>
-                        </div>
+                    <div class="profile-avatar">👤</div>
+                    <div class="profile-name" id="profileName">Pengguna</div>
+                    <div class="profile-email" id="profileEmail">pengguna@email.com</div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalPrayers">0</div>
+                        <div class="stat-label">Sholat</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalQuran">0</div>
+                        <div class="stat-label">Surah Dibaca</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="currentStreak">0</div>
+                        <div class="stat-label">Hari Streak</div>
                     </div>
                 </div>
 
-                <div class="section">
-                    <div class="profile-menu" id="profileMenu"></div>
+                <div class="menu-list">
+                    <div class="menu-item" onclick="openEditProfile()">
+                        <div class="menu-text">
+                            <span class="menu-icon">✏️</span>
+                            <span class="menu-label">Edit Profil</span>
+                        </div>
+                        <span class="menu-arrow">›</span>
+                    </div>
+                    <div class="menu-item" onclick="openNotificationSettings()">
+                        <div class="menu-text">
+                            <span class="menu-icon">🔔</span>
+                            <span class="menu-label">Pengaturan Notifikasi</span>
+                        </div>
+                        <span class="menu-arrow">›</span>
+                    </div>
+                    <div class="menu-item" onclick="openPrivacySettings()">
+                        <div class="menu-text">
+                            <span class="menu-icon">🔒</span>
+                            <span class="menu-label">Privasi & Keamanan</span>
+                        </div>
+                        <span class="menu-arrow">›</span>
+                    </div>
+                    <div class="menu-item" onclick="openHelp()">
+                        <div class="menu-text">
+                            <span class="menu-icon">❓</span>
+                            <span class="menu-label">Bantuan</span>
+                        </div>
+                        <span class="menu-arrow">›</span>
+                    </div>
+                    <div class="menu-item" onclick="openAbout()">
+                        <div class="menu-text">
+                            <span class="menu-icon">ℹ️</span>
+                            <span class="menu-label">Tentang Aplikasi</span>
+                        </div>
+                        <span class="menu-arrow">›</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <div class="nav-item active" onclick="navigateTo('home')">
+            <div class="nav-item active" onclick="showPage('berandaPage')">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-label">Beranda</div>
             </div>
-            <div class="nav-item" onclick="navigateTo('quran')">
+            <div class="nav-item" onclick="showPage('quranPage')">
                 <div class="nav-icon">📖</div>
                 <div class="nav-label">Al-Quran</div>
             </div>
-            <div class="nav-item" onclick="navigateTo('charity')">
-                <div class="nav-icon">💚</div>
+            <div class="nav-item" onclick="showPage('haidPage')">
+                <div class="nav-icon">🌙</div>
+                <div class="nav-label">Haid</div>
+            </div>
+            <div class="nav-item" onclick="showPage('sedekahPage')">
+                <div class="nav-icon">💝</div>
                 <div class="nav-label">Sedekah</div>
             </div>
-            <div class="nav-item" onclick="navigateTo('dua')">
-                <div class="nav-icon">🤲</div>
-                <div class="nav-label">Doa</div>
-            </div>
-            <div class="nav-item" onclick="navigateTo('profile')">
+            <div class="nav-item" onclick="showPage('profilPage')">
                 <div class="nav-icon">👤</div>
                 <div class="nav-label">Profil</div>
+            </div>
+        </div>
+
+        <!-- Period Modal -->
+        <div id="periodModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title">Catat Haid</div>
+                <div class="form-group">
+                    <label class="form-label">Tanggal Mulai</label>
+                    <input type="date" id="periodStartDate" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Durasi (hari)</label>
+                    <input type="number" id="periodDuration" class="form-input" value="7" min="1" max="15">
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-secondary" onclick="closePeriodModal()">Batal</button>
+                    <button class="btn btn-primary" onclick="savePeriod()">Simpan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div id="editProfileModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title">Edit Profil</div>
+                <div class="form-group">
+                    <label class="form-label">Nama</label>
+                    <input type="text" id="editName" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="editEmail" class="form-input">
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-secondary" onclick="closeEditProfile()">Batal</button>
+                    <button class="btn btn-primary" onclick="saveProfile()">Simpan</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Settings Modal -->
+        <div id="notifModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title">Pengaturan Notifikasi</div>
+                <div class="setting-item">
+                    <span>Notifikasi Sholat</span>
+                    <div class="toggle-switch active" onclick="toggleNotif(this, 'prayer')">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <span>Pengingat Haid</span>
+                    <div class="toggle-switch active" onclick="toggleNotif(this, 'period')">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <span>Pengingat Aktivitas</span>
+                    <div class="toggle-switch active" onclick="toggleNotif(this, 'activity')">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-primary" onclick="closeNotificationSettings()">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Modal -->
+        <div id="privacyModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title">Privasi & Keamanan</div>
+                <div class="menu-list">
+                    <div class="menu-item">
+                        <span>Data disimpan lokal di perangkat Anda</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Tidak ada data yang dikirim ke server</span>
+                    </div>
+                    <div class="menu-item">
+                        <span>Aplikasi dapat digunakan secara offline</span>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-primary" onclick="closePrivacySettings()">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="helpModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title">Bantuan</div>
+                <div class="menu-list">
+                    <div class="menu-item">
+                        <div class="menu-text">
+                            <span class="menu-icon">📱</span>
+                            <span class="menu-label">Cara menggunakan aplikasi</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-text">
+                            <span class="menu-icon">💬</span>
+                            <span class="menu-label">FAQ</span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="menu-text">
+                            <span class="menu-icon">📧</span>
+                            <span class="menu-label">Hubungi Support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-primary" onclick="closeHelp()">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Modal -->
+        <div id="aboutModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-title">Tentang Aplikasi</div>
+                <div style="text-align: center; padding: 20px;">
+                    <h2 style="color: #012248; margin-bottom: 10px;">Noor Journey</h2>
+                    <p style="color: #666; margin-bottom: 20px;">Versi 1.0.0</p>
+                    <p style="line-height: 1.6; color: #333;">
+                        Aplikasi pendamping ibadah harian yang membantu Anda melacak sholat, membaca Al-Quran, mengelola siklus haid, dan bersedekah.
+                    </p>
+                    <p style="margin-top: 20px; color: #666; font-size: 13px;">
+                        Berdasarkan "The Daily Deen Routine"
+                    </p>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-primary" onclick="closeAbout()">Tutup</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // ==================== DATA ====================
-        
-        const prayerTimes = [
-            { name: 'Subuh', time: '04:30', checked: false },
-            { name: 'Dzuhur', time: '12:00', checked: false },
-            { name: 'Ashar', time: '15:15', checked: false },
-            { name: 'Maghrib', time: '18:00', checked: false },
-            { name: 'Isya', time: '19:15', checked: false }
+        // ========== DATA ==========
+        const PRAYER_TIMES = {
+            shubuh: "04:30",
+            dhuha: "06:30",
+            dzuhur: "12:00",
+            ashar: "15:15",
+            maghrib: "18:00",
+            tahajud: "03:00",
+            isya: "19:15",
+            witir: "21:00"
+        };
+
+        const WAJIB_PRAYERS = [
+            { id: 'shubuh', name: 'Shubuh', time: '04:30' },
+            { id: 'dzuhur', name: 'Dzuhur', time: '12:00' },
+            { id: 'ashar', name: 'Ashar', time: '15:15' },
+            { id: 'maghrib', name: 'Maghrib', time: '18:00' },
+            { id: 'isya', name: 'Isya', time: '19:15' }
         ];
 
-        const sunnahPrayers = [
-            { id: 'tahajjud', name: 'Sholat Tahajjud', detail: 'Sepertiga malam terakhir', icon: '🌙', done: false },
-            { id: 'taubat', name: 'Sholat Taubat', detail: 'Memohon ampunan Allah', icon: '🤲', done: false },
-            { id: 'hajat', name: 'Sholat Hajat', detail: 'Meminta kepada Allah', icon: '✨', done: false }
+        const SUNNAH_PRAYERS = [
+            { id: 'dhuha', name: 'Dhuha', time: '06:30' },
+            { id: 'tahajud', name: 'Tahajud', time: '03:00' },
+            { id: 'witir', name: 'Witir', time: '21:00' },
+            { id: 'taubat', name: 'Taubat', time: '-' },
+            { id: 'hajat', name: 'Hajat', time: '-' }
         ];
 
-        const dailyTasks = [
-            { id: 1, name: 'Baca Al-Quran', detail: 'Minimal 1 halaman', icon: '📖', done: false },
-            { id: 2, name: 'Dzikir Pagi', detail: 'Setelah Subuh', icon: '🌅', done: false },
-            { id: 3, name: 'Dzikir Petang', detail: 'Setelah Ashar', icon: '🌆', done: false },
-            { id: 4, name: 'Sholat Dhuha', detail: '2-12 rakaat', icon: '☀️', done: false },
-            { id: 5, name: 'Sedekah', detail: 'Berbagi keberkahan', icon: '💰', done: false },
-            { id: 6, name: 'Istighfar', detail: 'Minimal 100x', icon: '💭', done: false }
+        const ACTIVITIES = [
+            { id: 'dzikir', name: 'Dzikir Pagi/Petang', icon: '📿' },
+            { id: 'quran', name: 'Baca Al-Quran', icon: '📖' },
+            { id: 'sedekah', name: 'Sedekah', icon: '💝' },
+            { id: 'doa', name: 'Doa Harian', icon: '🤲' },
+            { id: 'istighfar', name: 'Istighfar', icon: '🌙' },
+            { id: 'tilawah', name: 'Tilawah', icon: '✨' }
         ];
 
-        const charityPlatforms = [
-            { 
-                id: 'kitabisa', 
-                name: 'Kitabisa', 
-                logo: 'KB',
-                desc: 'Platform donasi terpercaya Indonesia',
-                url: 'https://kitabisa.com'
-            },
-            { 
-                id: 'baznas', 
-                name: 'Baznas', 
-                logo: 'BZ',
-                desc: 'Badan Amil Zakat Nasional',
-                url: 'https://www.baznas.go.id'
-            },
-            { 
-                id: 'dompet-dhuafa', 
-                name: 'Dompet Dhuafa', 
-                logo: 'DD',
-                desc: 'Lembaga filantropi Islam',
-                url: 'https://www.dompetdhuafa.org'
-            },
-            { 
-                id: 'rumah-zakat', 
-                name: 'Rumah Zakat', 
-                logo: 'RZ',
-                desc: 'Lembaga amil zakat nasional',
-                url: 'https://www.rumahzakat.org'
-            },
-            { 
-                id: 'aksi-cepat', 
-                name: 'Aksi Cepat Tanggap', 
-                logo: 'ACT',
-                desc: 'Kemanusiaan dan bantuan bencana',
-                url: 'https://act.id'
-            }
+        // 114 Surah Data
+        const SURAH_DATA = [
+            { number: 1, name: "Al-Fatihah", arabic: "الفاتحة", meaning: "Pembukaan", type: "Makkiyah", ayahs: 7 },
+            { number: 2, name: "Al-Baqarah", arabic: "البقرة", meaning: "Sapi Betina", type: "Madaniyah", ayahs: 286 },
+            { number: 3, name: "Ali 'Imran", arabic: "آل عمران", meaning: "Keluarga Imran", type: "Madaniyah", ayahs: 200 },
+            { number: 4, name: "An-Nisa", arabic: "النساء", meaning: "Wanita", type: "Madaniyah", ayahs: 176 },
+            { number: 5, name: "Al-Ma'idah", arabic: "المائدة", meaning: "Hidangan", type: "Madaniyah", ayahs: 120 },
+            { number: 6, name: "Al-An'am", arabic: "الأنعام", meaning: "Binatang Ternak", type: "Makkiyah", ayahs: 165 },
+            { number: 7, name: "Al-A'raf", arabic: "الأعراف", meaning: "Tempat Tertinggi", type: "Makkiyah", ayahs: 206 },
+            { number: 8, name: "Al-Anfal", arabic: "الأنفال", meaning: "Harta Rampasan", type: "Madaniyah", ayahs: 75 },
+            { number: 9, name: "At-Taubah", arabic: "التوبة", meaning: "Pengampunan", type: "Madaniyah", ayahs: 129 },
+            { number: 10, name: "Yunus", arabic: "يونس", meaning: "Nabi Yunus", type: "Makkiyah", ayahs: 109 },
+            { number: 11, name: "Hud", arabic: "هود", meaning: "Nabi Hud", type: "Makkiyah", ayahs: 123 },
+            { number: 12, name: "Yusuf", arabic: "يوسف", meaning: "Nabi Yusuf", type: "Makkiyah", ayahs: 111 },
+            { number: 13, name: "Ar-Ra'd", arabic: "الرعد", meaning: "Guruh", type: "Madaniyah", ayahs: 43 },
+            { number: 14, name: "Ibrahim", arabic: "ابراهيم", meaning: "Nabi Ibrahim", type: "Makkiyah", ayahs: 52 },
+            { number: 15, name: "Al-Hijr", arabic: "الحجر", meaning: "Gunung Hijr", type: "Makkiyah", ayahs: 99 },
+            { number: 16, name: "An-Nahl", arabic: "النحل", meaning: "Lebah", type: "Makkiyah", ayahs: 128 },
+            { number: 17, name: "Al-Isra", arabic: "الإسراء", meaning: "Perjalanan Malam", type: "Makkiyah", ayahs: 111 },
+            { number: 18, name: "Al-Kahf", arabic: "الكهف", meaning: "Gua", type: "Makkiyah", ayahs: 110 },
+            { number: 19, name: "Maryam", arabic: "مريم", meaning: "Maryam", type: "Makkiyah", ayahs: 98 },
+            { number: 20, name: "Taha", arabic: "طه", meaning: "Taha", type: "Makkiyah", ayahs: 135 },
+            { number: 21, name: "Al-Anbiya", arabic: "الأنبياء", meaning: "Para Nabi", type: "Makkiyah", ayahs: 112 },
+            { number: 22, name: "Al-Hajj", arabic: "الحج", meaning: "Haji", type: "Madaniyah", ayahs: 78 },
+            { number: 23, name: "Al-Mu'minun", arabic: "المؤمنون", meaning: "Orang Beriman", type: "Makkiyah", ayahs: 118 },
+            { number: 24, name: "An-Nur", arabic: "النور", meaning: "Cahaya", type: "Madaniyah", ayahs: 64 },
+            { number: 25, name: "Al-Furqan", arabic: "الفرقان", meaning: "Pembeda", type: "Makkiyah", ayahs: 77 },
+            { number: 26, name: "Ash-Shu'ara", arabic: "الشعراء", meaning: "Para Penyair", type: "Makkiyah", ayahs: 227 },
+            { number: 27, name: "An-Naml", arabic: "النمل", meaning: "Semut", type: "Makkiyah", ayahs: 93 },
+            { number: 28, name: "Al-Qasas", arabic: "القصص", meaning: "Kisah-kisah", type: "Makkiyah", ayahs: 88 },
+            { number: 29, name: "Al-'Ankabut", arabic: "العنكبوت", meaning: "Laba-laba", type: "Makkiyah", ayahs: 69 },
+            { number: 30, name: "Ar-Rum", arabic: "الروم", meaning: "Romawi", type: "Makkiyah", ayahs: 60 },
+            { number: 31, name: "Luqman", arabic: "لقمان", meaning: "Luqman", type: "Makkiyah", ayahs: 34 },
+            { number: 32, name: "As-Sajdah", arabic: "السجدة", meaning: "Sujud", type: "Makkiyah", ayahs: 30 },
+            { number: 33, name: "Al-Ahzab", arabic: "الأحزاب", meaning: "Golongan", type: "Madaniyah", ayahs: 73 },
+            { number: 34, name: "Saba", arabic: "سبأ", meaning: "Kaum Saba", type: "Makkiyah", ayahs: 54 },
+            { number: 35, name: "Fatir", arabic: "فاطر", meaning: "Pencipta", type: "Makkiyah", ayahs: 45 },
+            { number: 36, name: "Yasin", arabic: "يس", meaning: "Yasin", type: "Makkiyah", ayahs: 83 },
+            { number: 37, name: "As-Saffat", arabic: "الصافات", meaning: "Barisan", type: "Makkiyah", ayahs: 182 },
+            { number: 38, name: "Sad", arabic: "ص", meaning: "Sad", type: "Makkiyah", ayahs: 88 },
+            { number: 39, name: "Az-Zumar", arabic: "الزمر", meaning: "Rombongan", type: "Makkiyah", ayahs: 75 },
+            { number: 40, name: "Ghafir", arabic: "غافر", meaning: "Maha Pengampun", type: "Makkiyah", ayahs: 85 },
+            { number: 41, name: "Fussilat", arabic: "فصلت", meaning: "Dijelaskan", type: "Makkiyah", ayahs: 54 },
+            { number: 42, name: "Ash-Shura", arabic: "الشورى", meaning: "Musyawarah", type: "Makkiyah", ayahs: 53 },
+            { number: 43, name: "Az-Zukhruf", arabic: "الزخرف", meaning: "Perhiasan", type: "Makkiyah", ayahs: 89 },
+            { number: 44, name: "Ad-Dukhan", arabic: "الدخان", meaning: "Kabut", type: "Makkiyah", ayahs: 59 },
+            { number: 45, name: "Al-Jathiyah", arabic: "الجاثية", meaning: "Berlutut", type: "Makkiyah", ayahs: 37 },
+            { number: 46, name: "Al-Ahqaf", arabic: "الأحقاف", meaning: "Bukit Pasir", type: "Makkiyah", ayahs: 35 },
+            { number: 47, name: "Muhammad", arabic: "محمد", meaning: "Nabi Muhammad", type: "Madaniyah", ayahs: 38 },
+            { number: 48, name: "Al-Fath", arabic: "الفتح", meaning: "Kemenangan", type: "Madaniyah", ayahs: 29 },
+            { number: 49, name: "Al-Hujurat", arabic: "الحجرات", meaning: "Kamar-kamar", type: "Madaniyah", ayahs: 18 },
+            { number: 50, name: "Qaf", arabic: "ق", meaning: "Qaf", type: "Makkiyah", ayahs: 45 },
+            { number: 51, name: "Adh-Dhariyat", arabic: "الذاريات", meaning: "Angin", type: "Makkiyah", ayahs: 60 },
+            { number: 52, name: "At-Tur", arabic: "الطور", meaning: "Bukit", type: "Makkiyah", ayahs: 49 },
+            { number: 53, name: "An-Najm", arabic: "النجم", meaning: "Bintang", type: "Makkiyah", ayahs: 62 },
+            { number: 54, name: "Al-Qamar", arabic: "القمر", meaning: "Bulan", type: "Makkiyah", ayahs: 55 },
+            { number: 55, name: "Ar-Rahman", arabic: "الرحمن", meaning: "Maha Pengasih", type: "Madaniyah", ayahs: 78 },
+            { number: 56, name: "Al-Waqi'ah", arabic: "الواقعة", meaning: "Hari Kiamat", type: "Makkiyah", ayahs: 96 },
+            { number: 57, name: "Al-Hadid", arabic: "الحديد", meaning: "Besi", type: "Madaniyah", ayahs: 29 },
+            { number: 58, name: "Al-Mujadilah", arabic: "المجادلة", meaning: "Wanita Berdebat", type: "Madaniyah", ayahs: 22 },
+            { number: 59, name: "Al-Hashr", arabic: "الحشر", meaning: "Pengusiran", type: "Madaniyah", ayahs: 24 },
+            { number: 60, name: "Al-Mumtahanah", arabic: "الممتحنة", meaning: "Wanita Diuji", type: "Madaniyah", ayahs: 13 },
+            { number: 61, name: "As-Saff", arabic: "الصف", meaning: "Barisan", type: "Madaniyah", ayahs: 14 },
+            { number: 62, name: "Al-Jumu'ah", arabic: "الجمعة", meaning: "Jumat", type: "Madaniyah", ayahs: 11 },
+            { number: 63, name: "Al-Munafiqun", arabic: "المنافقون", meaning: "Orang Munafik", type: "Madaniyah", ayahs: 11 },
+            { number: 64, name: "At-Taghabun", arabic: "التغابن", meaning: "Hari Saling Menipu", type: "Madaniyah", ayahs: 18 },
+            { number: 65, name: "At-Talaq", arabic: "الطلاق", meaning: "Talak", type: "Madaniyah", ayahs: 12 },
+            { number: 66, name: "At-Tahrim", arabic: "التحريم", meaning: "Pengharaman", type: "Madaniyah", ayahs: 12 },
+            { number: 67, name: "Al-Mulk", arabic: "الملك", meaning: "Kerajaan", type: "Makkiyah", ayahs: 30 },
+            { number: 68, name: "Al-Qalam", arabic: "القلم", meaning: "Pena", type: "Makkiyah", ayahs: 52 },
+            { number: 69, name: "Al-Haqqah", arabic: "الحاقة", meaning: "Hari Kiamat", type: "Makkiyah", ayahs: 52 },
+            { number: 70, name: "Al-Ma'arij", arabic: "المعارج", meaning: "Tempat Naik", type: "Makkiyah", ayahs: 44 },
+            { number: 71, name: "Nuh", arabic: "نوح", meaning: "Nabi Nuh", type: "Makkiyah", ayahs: 28 },
+            { number: 72, name: "Al-Jinn", arabic: "الجن", meaning: "Jin", type: "Makkiyah", ayahs: 28 },
+            { number: 73, name: "Al-Muzzammil", arabic: "المزمل", meaning: "Berselimut", type: "Makkiyah", ayahs: 20 },
+            { number: 74, name: "Al-Muddaththir", arabic: "المدثر", meaning: "Berkemul", type: "Makkiyah", ayahs: 56 },
+            { number: 75, name: "Al-Qiyamah", arabic: "القيامة", meaning: "Hari Kiamat", type: "Makkiyah", ayahs: 40 },
+            { number: 76, name: "Al-Insan", arabic: "الانسان", meaning: "Manusia", type: "Madaniyah", ayahs: 31 },
+            { number: 77, name: "Al-Mursalat", arabic: "المرسلات", meaning: "Malaikat Diutus", type: "Makkiyah", ayahs: 50 },
+            { number: 78, name: "An-Naba", arabic: "النبأ", meaning: "Berita Besar", type: "Makkiyah", ayahs: 40 },
+            { number: 79, name: "An-Nazi'at", arabic: "النازعات", meaning: "Malaikat Pencabut", type: "Makkiyah", ayahs: 46 },
+            { number: 80, name: "Abasa", arabic: "عبس", meaning: "Bermuka Masam", type: "Makkiyah", ayahs: 42 },
+            { number: 81, name: "At-Takwir", arabic: "التكوير", meaning: "Menggulung", type: "Makkiyah", ayahs: 29 },
+            { number: 82, name: "Al-Infitar", arabic: "الإنفطار", meaning: "Terbelah", type: "Makkiyah", ayahs: 19 },
+            { number: 83, name: "Al-Mutaffifin", arabic: "المطففين", meaning: "Curang", type: "Makkiyah", ayahs: 36 },
+            { number: 84, name: "Al-Inshiqaq", arabic: "الإنشقاق", meaning: "Terbelah", type: "Makkiyah", ayahs: 25 },
+            { number: 85, name: "Al-Buruj", arabic: "البروج", meaning: "Gugusan Bintang", type: "Makkiyah", ayahs: 22 },
+            { number: 86, name: "At-Tariq", arabic: "الطارق", meaning: "Bintang Malam", type: "Makkiyah", ayahs: 17 },
+            { number: 87, name: "Al-A'la", arabic: "الأعلى", meaning: "Maha Tinggi", type: "Makkiyah", ayahs: 19 },
+            { number: 88, name: "Al-Ghashiyah", arabic: "الغاشية", meaning: "Hari Pembalasan", type: "Makkiyah", ayahs: 26 },
+            { number: 89, name: "Al-Fajr", arabic: "الفجر", meaning: "Fajar", type: "Makkiyah", ayahs: 30 },
+            { number: 90, name: "Al-Balad", arabic: "البلد", meaning: "Negeri", type: "Makkiyah", ayahs: 20 },
+            { number: 91, name: "Ash-Shams", arabic: "الشمس", meaning: "Matahari", type: "Makkiyah", ayahs: 15 },
+            { number: 92, name: "Al-Lail", arabic: "الليل", meaning: "Malam", type: "Makkiyah", ayahs: 21 },
+            { number: 93, name: "Ad-Duha", arabic: "الضحى", meaning: "Duha", type: "Makkiyah", ayahs: 11 },
+            { number: 94, name: "Ash-Sharh", arabic: "الشرح", meaning: "Kelapangan", type: "Makkiyah", ayahs: 8 },
+            { number: 95, name: "At-Tin", arabic: "التين", meaning: "Buah Tin", type: "Makkiyah", ayahs: 8 },
+            { number: 96, name: "Al-'Alaq", arabic: "العلق", meaning: "Segumpal Darah", type: "Makkiyah", ayahs: 19 },
+            { number: 97, name: "Al-Qadr", arabic: "القدر", meaning: "Kemuliaan", type: "Makkiyah", ayahs: 5 },
+            { number: 98, name: "Al-Bayyinah", arabic: "البينة", meaning: "Bukti Nyata", type: "Madaniyah", ayahs: 8 },
+            { number: 99, name: "Az-Zalzalah", arabic: "الزلزلة", meaning: "Guncangan", type: "Madaniyah", ayahs: 8 },
+            { number: 100, name: "Al-'Adiyat", arabic: "العاديات", meaning: "Berlari Kencang", type: "Makkiyah", ayahs: 11 },
+            { number: 101, name: "Al-Qari'ah", arabic: "القارعة", meaning: "Hari Kiamat", type: "Makkiyah", ayahs: 11 },
+            { number: 102, name: "At-Takathur", arabic: "التكاثر", meaning: "Bermegah-megahan", type: "Makkiyah", ayahs: 8 },
+            { number: 103, name: "Al-'Asr", arabic: "العصر", meaning: "Masa", type: "Makkiyah", ayahs: 3 },
+            { number: 104, name: "Al-Humazah", arabic: "الهمزة", meaning: "Pengumpat", type: "Makkiyah", ayahs: 9 },
+            { number: 105, name: "Al-Fil", arabic: "الفيل", meaning: "Gajah", type: "Makkiyah", ayahs: 5 },
+            { number: 106, name: "Quraish", arabic: "قريش", meaning: "Suku Quraisy", type: "Makkiyah", ayahs: 4 },
+            { number: 107, name: "Al-Ma'un", arabic: "الماعون", meaning: "Barang Berguna", type: "Makkiyah", ayahs: 7 },
+            { number: 108, name: "Al-Kautsar", arabic: "الكوثر", meaning: "Nikmat Berlimpah", type: "Makkiyah", ayahs: 3 },
+            { number: 109, name: "Al-Kafirun", arabic: "الكافرون", meaning: "Orang Kafir", type: "Makkiyah", ayahs: 6 },
+            { number: 110, name: "An-Nasr", arabic: "النصر", meaning: "Pertolongan", type: "Madaniyah", ayahs: 3 },
+            { number: 111, name: "Al-Lahab", arabic: "المسد", meaning: "Api", type: "Makkiyah", ayahs: 5 },
+            { number: 112, name: "Al-Ikhlas", arabic: "الإخلاص", meaning: "Keikhlasan", type: "Makkiyah", ayahs: 4 },
+            { number: 113, name: "Al-Falaq", arabic: "الفلق", meaning: "Waktu Subuh", type: "Makkiyah", ayahs: 5 },
+            { number: 114, name: "An-Nas", arabic: "الناس", meaning: "Manusia", type: "Makkiyah", ayahs: 6 }
         ];
 
-        const duaCategories = [
-            {
-                category: 'Doa Harian',
-                duas: [
-                    {
-                        title: 'Doa Bangun Tidur',
-                        arabic: 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ',
-                        transliteration: 'Alhamdu lillahil-ladzi ahyana ba\'da ma amatana wa ilaihin-nusyur',
-                        translation: 'Segala puji bagi Allah yang telah menghidupkan kami setelah mematikan kami dan kepada-Nya kami akan kembali'
-                    },
-                    {
-                        title: 'Doa Masuk Kamar Mandi',
-                        arabic: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ',
-                        transliteration: 'Allahumma inni a\'udzu bika minal-khubutsi wal-khaba\'its',
-                        translation: 'Ya Allah, aku berlindung kepada-Mu dari setan laki-laki dan perempuan'
-                    },
-                    {
-                        title: 'Doa Keluar Kamar Mandi',
-                        arabic: 'غُفْرَانَكَ الْحَمْدُ لِلَّهِ الَّذِي أَذْهَبَ عَنِّي الْأَذَى وَعَافَانِي',
-                        transliteration: 'Ghufranaka, alhamdu lillahil-ladzi adzhaba \'annil-adza wa \'afani',
-                        translation: 'Aku mohon ampunan-Mu. Segala puji bagi Allah yang telah menghilangkan gangguan dariku dan menyehatkanku'
-                    },
-                    {
-                        title: 'Doa Sebelum Makan',
-                        arabic: 'بِسْمِ اللَّهِ وَعَلَى بَرَكَةِ اللَّهِ',
-                        transliteration: 'Bismillahi wa \'ala barakatillah',
-                        translation: 'Dengan menyebut nama Allah dan atas berkah Allah'
-                    },
-                    {
-                        title: 'Doa Sesudah Makan',
-                        arabic: 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ',
-                        transliteration: 'Alhamdu lillahil-ladzi ath\'amana wa saqana wa ja\'alana muslimin',
-                        translation: 'Segala puji bagi Allah yang telah memberi kami makan dan minum serta menjadikan kami muslim'
-                    }
-                ]
-            },
-            {
-                category: 'Dzikir Pagi & Petang',
-                duas: [
-                    {
-                        title: 'Ayat Kursi',
-                        arabic: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ',
-                        transliteration: 'Allahu la ilaha illa Huwal Hayyul Qayyum, la ta\'khudhuhu sinatuw wa la nawm',
-                        translation: 'Allah, tidak ada Tuhan melainkan Dia Yang Hidup kekal lagi terus menerus mengurus makhluk-Nya'
-                    },
-                    {
-                        title: 'Surat Al-Ikhlas',
-                        arabic: 'قُلْ هُوَ اللَّهُ أَحَدٌ. اللَّهُ الصَّمَدُ. لَمْ يَلِدْ وَلَمْ يُولَدْ. وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ',
-                        transliteration: 'Qul huwallahu ahad. Allahush-shamad. Lam yalid wa lam yulad. Wa lam yakul-lahu kufuwan ahad',
-                        translation: 'Katakanlah: Dialah Allah Yang Maha Esa. Allah adalah Tuhan yang bergantung kepada-Nya segala sesuatu'
-                    },
-                    {
-                        title: 'Tasbih, Tahmid, Takbir',
-                        arabic: 'سُبْحَانَ اللّٰهِ وَالْحَمْدُ لِلّٰهِ وَاللّٰهُ اَكْبَرُ',
-                        transliteration: 'Subhanallahi walhamdulillahi wallahu akbar',
-                        translation: 'Maha Suci Allah, segala puji bagi Allah, dan Allah Maha Besar'
-                    }
-                ]
-            },
-            {
-                category: 'Doa Perjalanan',
-                duas: [
-                    {
-                        title: 'Doa Naik Kendaraan',
-                        arabic: 'بِسْمِ اللَّهِ، الْحَمْدُ لِلَّهِ، سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا',
-                        transliteration: 'Bismillah, alhamdulillah, subhanalladzii sakhkhara lana hadza',
-                        translation: 'Dengan nama Allah, segala puji bagi Allah, Maha Suci Allah yang telah menundukkan ini untuk kami'
-                    },
-                    {
-                        title: 'Doa Sampai Tujuan',
-                        arabic: 'الْحَمْدُ لِلَّهِ الَّذِي سَلَّمَنَا وَ نَجَّانَا وَ جَعَلَنَا مِنَ الْمُسْلِمِيْنَ',
-                        transliteration: 'Alhamdulillahil-ladzii sallamana wa najjana wa ja\'alana minal muslimin',
-                        translation: 'Segala puji bagi Allah yang telah menyelamatkan kami dan menyelamatkan kami serta menjadikan kami muslim'
-                    }
-                ]
-            }
+        // Al-Fatihah Ayahs
+        const ALFATIHAH_AYAHS = [
+            { number: 1, arabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", translation: "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang." },
+            { number: 2, arabic: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ", translation: "Segala puji bagi Allah, Tuhan seluruh alam," },
+            { number: 3, arabic: "الرَّحْمَٰنِ الرَّحِيمِ", translation: "Yang Maha Pengasih, Maha Penyayang," },
+            { number: 4, arabic: "مَالِكِ يَوْمِ الدِّينِ", translation: "Pemilik hari pembalasan." },
+            { number: 5, arabic: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ", translation: "Hanya kepada Engkaulah kami menyembah dan hanya kepada Engkaulah kami mohon pertolongan." },
+            { number: 6, arabic: "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ", translation: "Tunjukilah kami jalan yang lurus," },
+            { number: 7, arabic: "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ", translation: "(yaitu) jalan orang-orang yang telah Engkau beri nikmat kepadanya; bukan (jalan) mereka yang dimurkai, dan bukan (pula jalan) mereka yang sesat." }
         ];
 
-        const surahList = [
-            { number: 1, name: 'Al-Fatihah', arabic: 'الفاتحة', meaning: 'Pembuka', ayahs: 7, revelation: 'Makkah' },
-            { number: 2, name: 'Al-Baqarah', arabic: 'البقرة', meaning: 'Sapi Betina', ayahs: 286, revelation: 'Madinah' },
-            { number: 3, name: 'Ali \'Imran', arabic: 'آل عمران', meaning: 'Keluarga Imran', ayahs: 200, revelation: 'Madinah' },
-            { number: 4, name: 'An-Nisa', arabic: 'النساء', meaning: 'Wanita', ayahs: 176, revelation: 'Madinah' },
-            { number: 5, name: 'Al-Ma\'idah', arabic: 'المائدة', meaning: 'Hidangan', ayahs: 120, revelation: 'Madinah' },
-            { number: 6, name: 'Al-An\'am', arabic: 'الأنعام', meaning: 'Binatang Ternak', ayahs: 165, revelation: 'Makkah' },
-            { number: 7, name: 'Al-A\'raf', arabic: 'الأعراف', meaning: 'Tempat Tertinggi', ayahs: 206, revelation: 'Makkah' },
-            { number: 8, name: 'Al-Anfal', arabic: 'الأنفال', meaning: 'Harta Rampasan', ayahs: 75, revelation: 'Madinah' },
-            { number: 9, name: 'At-Taubah', arabic: 'التوبة', meaning: 'Pengampunan', ayahs: 129, revelation: 'Madinah' },
-            { number: 10, name: 'Yunus', arabic: 'يونس', meaning: 'Nabi Yunus', ayahs: 109, revelation: 'Makkah' }
-            // Add more surahs as needed
-        ];
+        const CHARITY_LINKS = {
+            'kitabisa': 'https://kitabisa.com',
+            'baznas': 'https://baznas.go.id',
+            'dompet-dhuafa': 'https://www.dompetdhuafa.org',
+            'rumah-zakat': 'https://www.rumahzakat.org',
+            'act': 'https://act.id'
+        };
 
-        const juzList = [
-            { number: 1, name: 'Juz 1', startSurah: 'Al-Fatihah (1)', endSurah: 'Al-Baqarah (141)', ayahs: 148 },
-            { number: 2, name: 'Juz 2', startSurah: 'Al-Baqarah (142)', endSurah: 'Al-Baqarah (252)', ayahs: 111 },
-            { number: 3, name: 'Juz 3', startSurah: 'Al-Baqarah (253)', endSurah: 'Ali \'Imran (92)', ayahs: 126 },
-            { number: 4, name: 'Juz 4', startSurah: 'Ali \'Imran (93)', endSurah: 'An-Nisa (23)', ayahs: 131 },
-            { number: 5, name: 'Juz 5', startSurah: 'An-Nisa (24)', endSurah: 'An-Nisa (147)', ayahs: 124 },
-            { number: 6, name: 'Juz 6', startSurah: 'An-Nisa (148)', endSurah: 'Al-Ma\'idah (81)', ayahs: 110 },
-            { number: 7, name: 'Juz 7', startSurah: 'Al-Ma\'idah (82)', endSurah: 'Al-An\'am (110)', ayahs: 149 },
-            { number: 8, name: 'Juz 8', startSurah: 'Al-An\'am (111)', endSurah: 'Al-A\'raf (87)', ayahs: 142 },
-            { number: 9, name: 'Juz 9', startSurah: 'Al-A\'raf (88)', endSurah: 'Al-Anfal (40)', ayahs: 159 },
-            { number: 10, name: 'Juz 10', startSurah: 'Al-Anfal (41)', endSurah: 'At-Taubah (92)', ayahs: 127 }
-            // Add more juz as needed
-        ];
+        // ========== STORAGE FUNCTIONS ==========
+        function getTodayKey() {
+            const today = new Date();
+            return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+        }
 
-        const profileMenuItems = [
-            { icon: '⚙️', text: 'Pengaturan', action: 'settings' },
-            { icon: '📊', text: 'Statistik', action: 'statistics' },
-            { icon: '🔔', text: 'Notifikasi', action: 'notifications' },
-            { icon: '🌙', text: 'Mode Gelap', action: 'darkMode' },
-            { icon: '📍', text: 'Lokasi', action: 'location' },
-            { icon: '📚', text: 'Panduan', action: 'guide' },
-            { icon: '💬', text: 'Hubungi Kami', action: 'contact' },
-            { icon: '⭐', text: 'Beri Rating', action: 'rate' }
-        ];
+        function loadTodayData() {
+            const key = getTodayKey();
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : {
+                prayers: {},
+                activities: {},
+                date: key
+            };
+        }
 
-        // ==================== STATE ====================
-        
-        let currentLocation = { lat: null, lon: null, city: 'Indonesia' };
-        let streakCount = parseInt(localStorage.getItem('streakCount') || '0');
-        let totalPrayersCompleted = parseInt(localStorage.getItem('totalPrayers') || '0');
-        let totalDuasRead = parseInt(localStorage.getItem('totalDuas') || '0');
-
-        // ==================== INITIALIZATION ====================
-        
-        function init() {
-            loadData();
-            updateDate();
-            requestLocation();
-            renderPrayerTimes();
-            renderSunnahPrayers();
-            renderDailyTasks();
-            renderSurahList();
-            renderJuzList();
-            renderCharityPlatforms();
-            renderDuaContent();
-            renderProfileMenu();
+        function saveTodayData(data) {
+            const key = getTodayKey();
+            data.date = key;
+            localStorage.setItem(key, JSON.stringify(data));
             updateStats();
-            startCountdown();
-            checkStreak();
-            
-            // Search functionality
-            document.getElementById('quranSearch').addEventListener('input', handleQuranSearch);
-            document.getElementById('duaSearch').addEventListener('input', handleDuaSearch);
+            renderWeeklyHistory();
         }
 
-        // ==================== DATE & TIME ====================
-        
-        function updateDate() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateStr = now.toLocaleDateString('id-ID', options);
-            
-            // Simplified Hijri date (you can integrate with a Hijri calendar API)
-            const hijriDate = getHijriDate();
-            
-            document.getElementById('dateInfo').innerHTML = `
-                ${dateStr}<br>
-                <small style="opacity: 0.8;">${hijriDate}</small>
-            `;
-        }
-
-        function getHijriDate() {
-            // This is a simplified version. For accurate Hijri dates, use an API
-            const islamicMonths = [
-                'Muharram', 'Safar', 'Rabi\' al-Awwal', 'Rabi\' al-Thani',
-                'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Sha\'ban',
-                'Ramadan', 'Shawwal', 'Dhu al-Qi\'dah', 'Dhu al-Hijjah'
-            ];
-            
-            const now = new Date();
-            const year = 1446; // Approximate, should be calculated
-            const month = Math.floor(Math.random() * 12); // Simplified
-            const day = now.getDate();
-            
-            return `${day} ${islamicMonths[month]} ${year} H`;
-        }
-
-        // ==================== LOCATION & PRAYER TIMES ====================
-        
-        function requestLocation() {
-            if ('geolocation' in navigator) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        currentLocation.lat = position.coords.latitude;
-                        currentLocation.lon = position.coords.longitude;
-                        getCityName(currentLocation.lat, currentLocation.lon);
-                        fetchPrayerTimes(currentLocation.lat, currentLocation.lon);
-                    },
-                    (error) => {
-                        console.log('Location error:', error);
-                        document.getElementById('locationName').textContent = 'Jakarta, Indonesia';
-                        // Use default Jakarta times
-                        fetchPrayerTimes(-6.2088, 106.8456);
-                    }
-                );
-            } else {
-                document.getElementById('locationName').textContent = 'Jakarta, Indonesia';
-                fetchPrayerTimes(-6.2088, 106.8456);
+        function getWeekData() {
+            const week = [];
+            const today = new Date();
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                const data = localStorage.getItem(key);
+                const dayName = ['MIN', 'SEN', 'SEL', 'RAB', 'KAM', 'JUM', 'SAB'][date.getDay()];
+                week.push({
+                    date: key,
+                    dayName: dayName,
+                    data: data ? JSON.parse(data) : null
+                });
             }
+            return week;
         }
 
-        function getCityName(lat, lon) {
-            // Simplified - in production, use reverse geocoding API
-            const cities = [
-                { name: 'Jakarta', lat: -6.2088, lon: 106.8456 },
-                { name: 'Surabaya', lat: -7.2575, lon: 112.7521 },
-                { name: 'Bandung', lat: -6.9175, lon: 107.6191 },
-                { name: 'Medan', lat: 3.5952, lon: 98.6722 },
-                { name: 'Semarang', lat: -6.9667, lon: 110.4167 }
-            ];
-            
-            let closestCity = cities[0];
-            let minDistance = Number.MAX_VALUE;
-            
-            cities.forEach(city => {
-                const distance = Math.sqrt(
-                    Math.pow(lat - city.lat, 2) + Math.pow(lon - city.lon, 2)
-                );
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    closestCity = city;
-                }
-            });
-            
-            currentLocation.city = closestCity.name;
-            document.getElementById('locationName').textContent = `${closestCity.name}, Indonesia`;
-        }
-
-        function fetchPrayerTimes(lat, lon) {
-            // In production, use Aladhan API or similar
-            // For now, using fixed times adjusted slightly based on location
-            const baseOffset = Math.round((lon - 106.8456) * 4); // Rough time zone adjustment
-            
-            // These times would come from an API in production
-            prayerTimes[0].time = adjustTime('04:30', baseOffset);
-            prayerTimes[1].time = adjustTime('12:00', baseOffset);
-            prayerTimes[2].time = adjustTime('15:15', baseOffset);
-            prayerTimes[3].time = adjustTime('18:00', baseOffset);
-            prayerTimes[4].time = adjustTime('19:15', baseOffset);
-            
-            renderPrayerTimes();
-            startCountdown();
-        }
-
-        function adjustTime(timeStr, minuteOffset) {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            const totalMinutes = hours * 60 + minutes + minuteOffset;
-            const newHours = Math.floor(totalMinutes / 60) % 24;
-            const newMinutes = totalMinutes % 60;
-            return `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
-        }
-
-        // ==================== COUNTDOWN ====================
-        
-        function startCountdown() {
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
-
-        function updateCountdown() {
-            const now = new Date();
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-            
-            let nextPrayer = null;
-            let nextPrayerTime = null;
-            
-            // Find next prayer
-            for (let prayer of prayerTimes) {
-                const [hours, minutes] = prayer.time.split(':').map(Number);
-                const prayerMinutes = hours * 60 + minutes;
-                
-                if (prayerMinutes > currentMinutes) {
-                    nextPrayer = prayer;
-                    nextPrayerTime = prayerMinutes;
+        function calculateStreak() {
+            let streak = 0;
+            const today = new Date();
+            for (let i = 0; i < 365; i++) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                const data = localStorage.getItem(key);
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    const hasActivity = Object.keys(parsed.prayers || {}).length > 0 || Object.keys(parsed.activities || {}).length > 0;
+                    if (hasActivity) {
+                        streak++;
+                    } else if (i > 0) {
+                        break;
+                    }
+                } else if (i > 0) {
                     break;
                 }
             }
-            
-            // If no prayer found today, use Subuh tomorrow
-            if (!nextPrayer) {
-                nextPrayer = prayerTimes[0];
-                const [hours, minutes] = nextPrayer.time.split(':').map(Number);
-                nextPrayerTime = (24 * 60) + (hours * 60 + minutes);
-            }
-            
-            // Calculate time difference
-            const diff = nextPrayerTime - currentMinutes;
-            const hours = Math.floor(diff / 60);
-            const minutes = diff % 60;
-            const seconds = 60 - now.getSeconds();
-            
-            // Update UI
-            document.getElementById('nextPrayerName').textContent = nextPrayer.name;
-            document.getElementById('countdownHours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('countdownMinutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('countdownSeconds').textContent = String(seconds).padStart(2, '0');
+            return streak;
         }
 
-        // ==================== RENDER FUNCTIONS ====================
-        
-        function renderPrayerTimes() {
-            const list = document.getElementById('prayerList');
-            list.innerHTML = '';
-            
+        // ========== COUNTDOWN TIMER ==========
+        function updateCountdown() {
             const now = new Date();
-            const currentMinutes = now.getHours() * 60 + now.getMinutes();
-            
-            prayerTimes.forEach((prayer, index) => {
-                const [hours, minutes] = prayer.time.split(':').map(Number);
-                const prayerMinutes = hours * 60 + minutes;
-                const isCurrent = Math.abs(currentMinutes - prayerMinutes) <= 30 && currentMinutes <= prayerMinutes;
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+
+            const prayers = [
+                { name: 'Shubuh', time: PRAYER_TIMES.shubuh },
+                { name: 'Dzuhur', time: PRAYER_TIMES.dzuhur },
+                { name: 'Ashar', time: PRAYER_TIMES.ashar },
+                { name: 'Maghrib', time: PRAYER_TIMES.maghrib },
+                { name: 'Isya', time: PRAYER_TIMES.isya }
+            ];
+
+            let nextPrayer = null;
+            let minDiff = Infinity;
+
+            prayers.forEach(prayer => {
+                const [hour, minute] = prayer.time.split(':').map(Number);
+                const prayerTime = hour * 60 + minute;
+                let diff = prayerTime - currentTime;
                 
-                const item = document.createElement('div');
-                item.className = 'prayer-item' + (isCurrent ? ' current' : '');
-                item.innerHTML = `
-                    <div class="prayer-name">${prayer.name}</div>
-                    <div class="prayer-time">${prayer.time}</div>
-                    <div class="prayer-check ${prayer.checked ? 'checked' : ''}" onclick="togglePrayer(${index})"></div>
-                `;
-                list.appendChild(item);
+                if (diff < 0) {
+                    diff += 1440; // Add 24 hours
+                }
+                
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    nextPrayer = prayer;
+                }
             });
+
+            if (nextPrayer) {
+                const hours = Math.floor(minDiff / 60);
+                const minutes = minDiff % 60;
+                const seconds = 60 - now.getSeconds();
+                
+                document.getElementById('countdownTimer').textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                document.getElementById('nextPrayerName').textContent = nextPrayer.name;
+            }
         }
 
-        function renderSunnahPrayers() {
-            const container = document.getElementById('sunnahPrayerTracker');
-            container.innerHTML = '';
+        // ========== RENDER FUNCTIONS ==========
+        function renderWeeklyHistory() {
+            const weekData = getWeekData();
+            const container = document.getElementById('weeklyDots');
             
-            sunnahPrayers.forEach(prayer => {
-                const item = document.createElement('div');
-                item.className = 'tracker-item';
-                item.onclick = () => toggleSunnahPrayer(prayer.id);
-                item.innerHTML = `
-                    <div class="tracker-icon">${prayer.icon}</div>
-                    <div class="tracker-info">
-                        <div class="tracker-name">${prayer.name}</div>
-                        <div class="tracker-detail">${prayer.detail}</div>
+            container.innerHTML = weekData.map(day => {
+                const hasData = day.data && (Object.keys(day.data.prayers || {}).length > 0 || Object.keys(day.data.activities || {}).length > 0);
+                return `
+                    <div class="day-dot">
+                        <div class="day-label">${day.dayName}</div>
+                        <div class="dot ${hasData ? 'completed' : ''}"></div>
                     </div>
-                    <div class="tracker-status ${prayer.done ? 'done' : ''}"></div>
                 `;
-                container.appendChild(item);
-            });
+            }).join('');
+
+            // Weekly summary
+            const totalPrayers = weekData.reduce((sum, day) => {
+                if (day.data) {
+                    return sum + Object.keys(day.data.prayers || {}).length;
+                }
+                return sum;
+            }, 0);
+
+            const totalActivities = weekData.reduce((sum, day) => {
+                if (day.data) {
+                    return sum + Object.keys(day.data.activities || {}).length;
+                }
+                return sum;
+            }, 0);
+
+            const activeDays = weekData.filter(day => {
+                return day.data && (Object.keys(day.data.prayers || {}).length > 0 || Object.keys(day.data.activities || {}).length > 0);
+            }).length;
+
+            document.getElementById('weeklySummary').innerHTML = `
+                <div>${totalPrayers} sholat tercatat</div>
+                <div>${totalActivities} aktivitas selesai</div>
+                <div>${activeDays} dari 7 hari aktif</div>
+            `;
+
+            // Update streak
+            const streak = calculateStreak();
+            document.getElementById('streakNumber').textContent = streak;
         }
 
-        function renderDailyTasks() {
-            const container = document.getElementById('dailyTracker');
-            container.innerHTML = '';
+        function renderPrayers() {
+            const todayData = loadTodayData();
             
-            dailyTasks.forEach(task => {
-                const item = document.createElement('div');
-                item.className = 'tracker-item';
-                item.onclick = () => toggleDailyTask(task.id);
-                item.innerHTML = `
-                    <div class="tracker-icon">${task.icon}</div>
-                    <div class="tracker-info">
-                        <div class="tracker-name">${task.name}</div>
-                        <div class="tracker-detail">${task.detail}</div>
+            // Wajib prayers
+            const wajibContainer = document.getElementById('wajibPrayerList');
+            wajibContainer.innerHTML = WAJIB_PRAYERS.map(prayer => `
+                <div class="prayer-item">
+                    <div class="prayer-info">
+                        <div class="prayer-name">${prayer.name}</div>
+                        <div class="prayer-time">${prayer.time}</div>
                     </div>
-                    <div class="tracker-status ${task.done ? 'done' : ''}"></div>
-                `;
-                container.appendChild(item);
-            });
+                    <div class="check-circle ${todayData.prayers[prayer.id] ? 'checked' : ''}" 
+                         onclick="togglePrayer('${prayer.id}')"></div>
+                </div>
+            `).join('');
+
+            // Sunnah prayers
+            const sunnahContainer = document.getElementById('sunnahPrayerList');
+            sunnahContainer.innerHTML = SUNNAH_PRAYERS.map(prayer => `
+                <div class="prayer-item">
+                    <div class="prayer-info">
+                        <div class="prayer-name">${prayer.name}</div>
+                        <div class="prayer-time">${prayer.time}</div>
+                    </div>
+                    <div class="check-circle ${todayData.prayers[prayer.id] ? 'checked' : ''}" 
+                         onclick="togglePrayer('${prayer.id}')"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderActivities() {
+            const todayData = loadTodayData();
+            const container = document.getElementById('activityGrid');
+            
+            container.innerHTML = ACTIVITIES.map(activity => `
+                <div class="activity-item ${todayData.activities[activity.id] ? 'checked' : ''}" 
+                     onclick="toggleActivity('${activity.id}')">
+                    <div class="activity-icon">${activity.icon}</div>
+                    <div class="activity-name">${activity.name}</div>
+                </div>
+            `).join('');
         }
 
         function renderSurahList() {
-            const container = document.getElementById('surahList');
-            container.innerHTML = '';
-            
-            surahList.forEach(surah => {
-                const item = document.createElement('div');
-                item.className = 'surah-item';
-                item.onclick = () => openSurah(surah.number);
-                item.innerHTML = `
+            const container = document.getElementById('surahListContainer');
+            container.innerHTML = SURAH_DATA.map(surah => `
+                <div class="surah-item" onclick="openSurah(${surah.number})">
                     <div class="surah-number">${surah.number}</div>
                     <div class="surah-info">
                         <div class="surah-name">${surah.name}</div>
-                        <div class="surah-arabic">${surah.arabic}</div>
-                        <div class="surah-meta">${surah.ayahs} ayat · ${surah.revelation}</div>
+                        <div class="surah-meta">${surah.type} • ${surah.ayahs} Ayat</div>
                     </div>
-                `;
-                container.appendChild(item);
+                    <div class="surah-arabic">${surah.arabic}</div>
+                </div>
+            `).join('');
+        }
+
+        // ========== TOGGLE FUNCTIONS ==========
+        function togglePrayer(id) {
+            const todayData = loadTodayData();
+            if (todayData.prayers[id]) {
+                delete todayData.prayers[id];
+            } else {
+                todayData.prayers[id] = new Date().toISOString();
+            }
+            saveTodayData(todayData);
+            renderPrayers();
+        }
+
+        function toggleActivity(id) {
+            const todayData = loadTodayData();
+            if (todayData.activities[id]) {
+                delete todayData.activities[id];
+            } else {
+                todayData.activities[id] = new Date().toISOString();
+            }
+            saveTodayData(todayData);
+            renderActivities();
+        }
+
+        // ========== NAVIGATION ==========
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
+            
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active to clicked nav item
+            event.currentTarget.classList.add('active');
+        }
+
+        // ========== QURAN FUNCTIONS ==========
+        function openSurah(number) {
+            const surah = SURAH_DATA.find(s => s.number === number);
+            if (!surah) return;
+
+            document.getElementById('surahDetailTitle').textContent = surah.name;
+            document.getElementById('surahDetailMeta').textContent = `${surah.type} • ${surah.ayahs} Ayat`;
+
+            const container = document.getElementById('ayahListContainer');
+            
+            if (number === 1) {
+                // Al-Fatihah with full ayahs
+                container.innerHTML = ALFATIHAH_AYAHS.map(ayah => `
+                    <div class="ayah-item">
+                        <div class="ayah-number">Ayat ${ayah.number}</div>
+                        <div class="ayah-arabic">${ayah.arabic}</div>
+                        <div class="ayah-translation">${ayah.translation}</div>
+                    </div>
+                `).join('');
+            } else {
+                // Other surahs - show surah info with arabic
+                let ayahsHTML = '';
+                for (let i = 1; i <= surah.ayahs; i++) {
+                    ayahsHTML += `
+                        <div class="ayah-item">
+                            <div class="ayah-number">Ayat ${i}</div>
+                            <div class="ayah-arabic">${surah.arabic}</div>
+                            <div class="ayah-translation" style="color: #999; font-style: italic;">Teks Arab untuk ayat ${i} dari surah ${surah.name}</div>
+                        </div>
+                    `;
+                }
+                
+                container.innerHTML = `
+                    <div class="ayah-item">
+                        <div class="ayah-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+                        <div class="ayah-translation">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</div>
+                    </div>
+                    ${ayahsHTML}
+                `;
+            }
+
+            // Switch to detail page
+            document.getElementById('quranPage').classList.remove('active');
+            document.getElementById('surahDetailPage').classList.add('active');
+
+            // Track reading
+            updateQuranStats();
+        }
+
+        function switchQuranTab(tab) {
+            const surahTab = document.querySelector('.tab:nth-child(1)');
+            const juzTab = document.querySelector('.tab:nth-child(2)');
+            const surahContainer = document.getElementById('surahListContainer');
+            const juzContainer = document.getElementById('juzListContainer');
+
+            if (tab === 'surah') {
+                surahTab.classList.add('active');
+                juzTab.classList.remove('active');
+                surahContainer.style.display = 'block';
+                juzContainer.style.display = 'none';
+            } else {
+                surahTab.classList.remove('active');
+                juzTab.classList.add('active');
+                surahContainer.style.display = 'none';
+                juzContainer.style.display = 'block';
+                renderJuzList();
+            }
         }
 
         function renderJuzList() {
-            const container = document.getElementById('juzList');
-            container.innerHTML = '';
+            const container = document.getElementById('juzListContainer');
+            let html = '';
             
-            juzList.forEach(juz => {
-                const item = document.createElement('div');
-                item.className = 'juz-item';
-                item.onclick = () => openJuz(juz.number);
-                item.innerHTML = `
-                    <div class="juz-number">${juz.number}</div>
-                    <div class="juz-info">
-                        <div class="juz-name">${juz.name}</div>
-                        <div class="surah-meta">${juz.startSurah} - ${juz.endSurah}</div>
-                        <div class="surah-meta">${juz.ayahs} ayat</div>
+            for (let i = 1; i <= 30; i++) {
+                html += `
+                    <div class="surah-item">
+                        <div class="surah-number">${i}</div>
+                        <div class="surah-info" style="flex: 1;">
+                            <div class="surah-name">Juz ${i}</div>
+                            <div class="surah-meta">30 Juz dalam Al-Quran</div>
+                        </div>
+                        <div class="surah-arabic">جُزْءُ ${i}</div>
                     </div>
                 `;
-                container.appendChild(item);
-            });
-        }
-
-        function renderCharityPlatforms() {
-            const container = document.getElementById('charityPlatforms');
-            container.innerHTML = '';
-            
-            charityPlatforms.forEach(platform => {
-                const card = document.createElement('div');
-                card.className = 'platform-card';
-                card.onclick = () => openCharity(platform.url);
-                card.innerHTML = `
-                    <div class="platform-logo">${platform.logo}</div>
-                    <div class="platform-info">
-                        <div class="platform-name">${platform.name}</div>
-                        <div class="platform-desc">${platform.desc}</div>
-                    </div>
-                    <div class="platform-arrow">→</div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function renderDuaContent() {
-            const container = document.getElementById('duaContent');
-            container.innerHTML = '';
-            
-            duaCategories.forEach(category => {
-                const section = document.createElement('div');
-                section.className = 'dua-category';
-                
-                const title = document.createElement('div');
-                title.className = 'category-title';
-                title.textContent = category.category;
-                section.appendChild(title);
-                
-                const list = document.createElement('div');
-                list.className = 'dua-list';
-                
-                category.duas.forEach(dua => {
-                    const card = document.createElement('div');
-                    card.className = 'dua-card';
-                    card.onclick = () => trackDuaRead();
-                    card.innerHTML = `
-                        <div class="dua-title">${dua.title}</div>
-                        <div class="dua-arabic">${dua.arabic}</div>
-                        <div class="dua-transliteration">${dua.transliteration}</div>
-                        <div class="dua-translation">${dua.translation}</div>
-                    `;
-                    list.appendChild(card);
-                });
-                
-                section.appendChild(list);
-                container.appendChild(section);
-            });
-        }
-
-        function renderProfileMenu() {
-            const container = document.getElementById('profileMenu');
-            container.innerHTML = '';
-            
-            profileMenuItems.forEach(item => {
-                const menuItem = document.createElement('div');
-                menuItem.className = 'profile-menu-item';
-                menuItem.onclick = () => handleProfileAction(item.action);
-                menuItem.innerHTML = `
-                    <div class="profile-menu-icon">${item.icon}</div>
-                    <div class="profile-menu-text">${item.text}</div>
-                    <div class="profile-menu-arrow">›</div>
-                `;
-                container.appendChild(menuItem);
-            });
-        }
-
-        // ==================== INTERACTIONS ====================
-        
-        function togglePrayer(index) {
-            prayerTimes[index].checked = !prayerTimes[index].checked;
-            if (prayerTimes[index].checked) {
-                totalPrayersCompleted++;
-                localStorage.setItem('totalPrayers', totalPrayersCompleted);
-            } else {
-                totalPrayersCompleted = Math.max(0, totalPrayersCompleted - 1);
-                localStorage.setItem('totalPrayers', totalPrayersCompleted);
             }
-            saveData();
-            renderPrayerTimes();
-            updateStats();
+            
+            container.innerHTML = html;
         }
 
-        function toggleSunnahPrayer(id) {
-            const prayer = sunnahPrayers.find(p => p.id === id);
-            if (prayer) {
-                prayer.done = !prayer.done;
-                saveData();
-                renderSunnahPrayers();
+        function backToSurahList() {
+            document.getElementById('surahDetailPage').classList.remove('active');
+            document.getElementById('quranPage').classList.add('active');
+        }
+
+        function updateQuranStats() {
+            let quranStats = localStorage.getItem('quranStats');
+            quranStats = quranStats ? JSON.parse(quranStats) : { surahsRead: [] };
+            
+            const currentSurah = SURAH_DATA.find(s => 
+                s.name === document.getElementById('surahDetailTitle').textContent
+            );
+            
+            if (currentSurah && !quranStats.surahsRead.includes(currentSurah.number)) {
+                quranStats.surahsRead.push(currentSurah.number);
+                localStorage.setItem('quranStats', JSON.stringify(quranStats));
+                updateStats();
             }
         }
 
-        function toggleDailyTask(id) {
-            const task = dailyTasks.find(t => t.id === id);
-            if (task) {
-                task.done = !task.done;
-                saveData();
-                renderDailyTasks();
+        // ========== CALENDAR FUNCTIONS ==========
+        let currentCalendarMonth = new Date().getMonth();
+        let currentCalendarYear = new Date().getFullYear();
+
+        function renderCalendar() {
+            const firstDay = new Date(currentCalendarYear, currentCalendarMonth, 1);
+            const lastDay = new Date(currentCalendarYear, currentCalendarMonth + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startDay = firstDay.getDay();
+
+            document.getElementById('calendarTitle').textContent = 
+                `${['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'][currentCalendarMonth]} ${currentCalendarYear}`;
+
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            // Day labels
+            ['MIN', 'SEN', 'SEL', 'RAB', 'KAM', 'JUM', 'SAB'].forEach(day => {
+                const label = document.createElement('div');
+                label.className = 'calendar-day-label';
+                label.textContent = day;
+                grid.appendChild(label);
+            });
+
+            // Empty cells before first day
+            for (let i = 0; i < startDay; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-day empty';
+                grid.appendChild(empty);
+            }
+
+            // Days
+            const today = new Date();
+            const periodData = getPeriodData();
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(currentCalendarYear, currentCalendarMonth, day);
+                const dateKey = `${currentCalendarYear}-${String(currentCalendarMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                
+                const dayDiv = document.createElement('div');
+                dayDiv.className = 'calendar-day';
+                dayDiv.textContent = day;
+
+                // Check if today
+                if (date.toDateString() === today.toDateString()) {
+                    dayDiv.classList.add('today');
+                }
+
+                // Check if period day
+                if (periodData.periodDays.includes(dateKey)) {
+                    dayDiv.classList.add('period');
+                }
+
+                // Check if prayer day (not period day)
+                if (!periodData.periodDays.includes(dateKey) && date <= today) {
+                    dayDiv.classList.add('prayer');
+                }
+
+                grid.appendChild(dayDiv);
             }
         }
 
-        function trackDuaRead() {
-            totalDuasRead++;
-            localStorage.setItem('totalDuas', totalDuasRead);
-            updateStats();
+        function changeMonth(direction) {
+            currentCalendarMonth += direction;
+            if (currentCalendarMonth > 11) {
+                currentCalendarMonth = 0;
+                currentCalendarYear++;
+            } else if (currentCalendarMonth < 0) {
+                currentCalendarMonth = 11;
+                currentCalendarYear--;
+            }
+            renderCalendar();
         }
 
-        function openSurah(number) {
-            alert(`Membuka Surah ${number}...\n\nFitur pembaca Al-Quran akan segera hadir dengan tampilan yang indah dan fitur audio!`);
+        function getPeriodData() {
+            const data = localStorage.getItem('periodData');
+            return data ? JSON.parse(data) : { periods: [], periodDays: [] };
         }
 
-        function openJuz(number) {
-            alert(`Membuka Juz ${number}...\n\nFitur pembaca Al-Quran akan segera hadir dengan tampilan yang indah dan fitur audio!`);
+        function openPeriodModal() {
+            document.getElementById('periodModal').classList.add('active');
+            document.getElementById('periodStartDate').value = getTodayKey();
         }
 
-        function openCharity(url) {
-            const confirmed = confirm(`Anda akan diarahkan ke platform donasi eksternal.\n\nLanjutkan?`);
-            if (confirmed) {
+        function closePeriodModal() {
+            document.getElementById('periodModal').classList.remove('active');
+        }
+
+        function savePeriod() {
+            const startDate = document.getElementById('periodStartDate').value;
+            const duration = parseInt(document.getElementById('periodDuration').value);
+
+            if (!startDate || !duration) {
+                alert('Mohon isi semua field');
+                return;
+            }
+
+            const periodData = getPeriodData();
+            
+            // Add period record
+            periodData.periods.push({
+                startDate: startDate,
+                duration: duration,
+                date: new Date().toISOString()
+            });
+
+            // Calculate period days
+            const start = new Date(startDate);
+            for (let i = 0; i < duration; i++) {
+                const date = new Date(start);
+                date.setDate(date.getDate() + i);
+                const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                if (!periodData.periodDays.includes(dateKey)) {
+                    periodData.periodDays.push(dateKey);
+                }
+            }
+
+            localStorage.setItem('periodData', JSON.stringify(periodData));
+            closePeriodModal();
+            renderCalendar();
+        }
+
+        // ========== CHARITY FUNCTIONS ==========
+        function openCharity(platform) {
+            const url = CHARITY_LINKS[platform];
+            if (url) {
                 window.open(url, '_blank');
             }
         }
 
-        function handleProfileAction(action) {
-            const actions = {
-                settings: () => alert('Pengaturan akan segera hadir!'),
-                statistics: () => alert('Statistik detail akan segera hadir!'),
-                notifications: () => alert('Pengaturan notifikasi akan segera hadir!'),
-                darkMode: () => alert('Mode gelap akan segera hadir!'),
-                location: () => requestLocation(),
-                guide: () => alert('Panduan penggunaan akan segera hadir!'),
-                contact: () => alert('Hubungi kami di: support@noorjourney.app'),
-                rate: () => alert('Terima kasih! Rating akan segera hadir di App Store & Play Store')
-            };
-            
-            if (actions[action]) {
-                actions[action]();
+        // ========== PROFILE FUNCTIONS ==========
+        function loadProfile() {
+            const profile = localStorage.getItem('userProfile');
+            if (profile) {
+                const data = JSON.parse(profile);
+                document.getElementById('profileName').textContent = data.name || 'Pengguna';
+                document.getElementById('profileEmail').textContent = data.email || 'pengguna@email.com';
             }
         }
 
-        // ==================== NAVIGATION ====================
-        
-        function navigateTo(page) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            
-            // Show selected page
-            const pageMap = {
-                home: 'homePage',
-                quran: 'quranPage',
-                charity: 'charityPage',
-                dua: 'duaPage',
-                profile: 'profilePage'
-            };
-            
-            document.getElementById(pageMap[page]).classList.add('active');
-            
-            // Update nav
-            document.querySelectorAll('.nav-item').forEach((item, index) => {
-                item.classList.remove('active');
-            });
-            
-            const navIndex = ['home', 'quran', 'charity', 'dua', 'profile'].indexOf(page);
-            document.querySelectorAll('.nav-item')[navIndex].classList.add('active');
-        }
-
-        function switchQuranTab(tab) {
-            // Update tabs
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            if (tab === 'surah') {
-                document.querySelectorAll('.tab')[0].classList.add('active');
-                document.getElementById('surahTab').classList.add('active');
-            } else {
-                document.querySelectorAll('.tab')[1].classList.add('active');
-                document.getElementById('juzTab').classList.add('active');
-            }
-        }
-
-        // ==================== SEARCH ====================
-        
-        function handleQuranSearch(e) {
-            const query = e.target.value.toLowerCase();
-            
-            // Search surahs
-            const surahItems = document.querySelectorAll('.surah-item');
-            surahItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(query) ? 'flex' : 'none';
-            });
-            
-            // Search juz
-            const juzItems = document.querySelectorAll('.juz-item');
-            juzItems.forEach(item => {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(query) ? 'flex' : 'none';
-            });
-        }
-
-        function handleDuaSearch(e) {
-            const query = e.target.value.toLowerCase();
-            
-            document.querySelectorAll('.dua-card').forEach(card => {
-                const text = card.textContent.toLowerCase();
-                card.style.display = text.includes(query) ? 'block' : 'none';
-            });
-        }
-
-        // ==================== STATS & STORAGE ====================
-        
         function updateStats() {
-            const prayerCount = prayerTimes.filter(p => p.checked).length;
-            document.getElementById('streakCount').textContent = streakCount;
-            document.getElementById('todayPrayerCount').textContent = `${prayerCount}/5`;
-            
-            // Profile stats
-            document.getElementById('profileStreak').textContent = streakCount;
-            document.getElementById('profilePrayers').textContent = totalPrayersCompleted;
-            document.getElementById('profileDuas').textContent = totalDuasRead;
-        }
-
-        function checkStreak() {
-            const today = new Date().toDateString();
-            const lastLogin = localStorage.getItem('lastLoginDate');
-            
-            if (lastLogin !== today) {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                
-                if (lastLogin === yesterday.toDateString()) {
-                    streakCount++;
-                } else if (lastLogin !== null) {
-                    streakCount = 1;
-                }
-                
-                localStorage.setItem('streakCount', streakCount);
-                localStorage.setItem('lastLoginDate', today);
-            }
-        }
-
-        function saveData() {
-            localStorage.setItem('prayerTimes', JSON.stringify(prayerTimes));
-            localStorage.setItem('sunnahPrayers', JSON.stringify(sunnahPrayers));
-            localStorage.setItem('dailyTasks', JSON.stringify(dailyTasks));
-            localStorage.setItem('saveDate', new Date().toDateString());
-        }
-
-        function loadData() {
-            const saved = localStorage.getItem('prayerTimes');
-            const saveDate = localStorage.getItem('saveDate');
-            const today = new Date().toDateString();
-            
-            if (saved && saveDate === today) {
-                const savedPrayers = JSON.parse(saved);
-                prayerTimes.forEach((prayer, i) => {
-                    prayer.checked = savedPrayers[i]?.checked || false;
-                });
-                
-                const savedSunnah = localStorage.getItem('sunnahPrayers');
-                if (savedSunnah) {
-                    const parsedSunnah = JSON.parse(savedSunnah);
-                    sunnahPrayers.forEach((prayer, i) => {
-                        prayer.done = parsedSunnah[i]?.done || false;
-                    });
-                }
-                
-                const savedTasks = localStorage.getItem('dailyTasks');
-                if (savedTasks) {
-                    const parsedTasks = JSON.parse(savedTasks);
-                    dailyTasks.forEach((task, i) => {
-                        task.done = parsedTasks[i]?.done || false;
-                    });
+            // Total prayers
+            let totalPrayers = 0;
+            for (let i = 0; i < 365; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const key = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+                const data = localStorage.getItem(key);
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    totalPrayers += Object.keys(parsed.prayers || {}).length;
                 }
             }
+            document.getElementById('totalPrayers').textContent = totalPrayers;
+
+            // Quran stats
+            const quranStats = localStorage.getItem('quranStats');
+            const surahCount = quranStats ? JSON.parse(quranStats).surahsRead.length : 0;
+            document.getElementById('totalQuran').textContent = surahCount;
+
+            // Current streak
+            const streak = calculateStreak();
+            document.getElementById('currentStreak').textContent = streak;
         }
 
-        // ==================== START APP ====================
-        
-        init();
+        function openEditProfile() {
+            const profile = localStorage.getItem('userProfile');
+            if (profile) {
+                const data = JSON.parse(profile);
+                document.getElementById('editName').value = data.name || '';
+                document.getElementById('editEmail').value = data.email || '';
+            }
+            document.getElementById('editProfileModal').classList.add('active');
+        }
+
+        function closeEditProfile() {
+            document.getElementById('editProfileModal').classList.remove('active');
+        }
+
+        function saveProfile() {
+            const name = document.getElementById('editName').value;
+            const email = document.getElementById('editEmail').value;
+
+            if (!name || !email) {
+                alert('Mohon isi semua field');
+                return;
+            }
+
+            localStorage.setItem('userProfile', JSON.stringify({ name, email }));
+            loadProfile();
+            closeEditProfile();
+        }
+
+        function openNotificationSettings() {
+            document.getElementById('notifModal').classList.add('active');
+        }
+
+        function closeNotificationSettings() {
+            document.getElementById('notifModal').classList.remove('active');
+        }
+
+        function toggleNotif(element, type) {
+            element.classList.toggle('active');
+            const settings = localStorage.getItem('notifSettings') || '{}';
+            const data = JSON.parse(settings);
+            data[type] = element.classList.contains('active');
+            localStorage.setItem('notifSettings', JSON.stringify(data));
+        }
+
+        function openPrivacySettings() {
+            document.getElementById('privacyModal').classList.add('active');
+        }
+
+        function closePrivacySettings() {
+            document.getElementById('privacyModal').classList.remove('active');
+        }
+
+        function openHelp() {
+            document.getElementById('helpModal').classList.add('active');
+        }
+
+        function closeHelp() {
+            document.getElementById('helpModal').classList.remove('active');
+        }
+
+        function openAbout() {
+            document.getElementById('aboutModal').classList.add('active');
+        }
+
+        function closeAbout() {
+            document.getElementById('aboutModal').classList.remove('active');
+        }
+
+        // ========== SEARCH FUNCTION ==========
+        document.getElementById('surahSearch')?.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const filtered = SURAH_DATA.filter(surah => 
+                surah.name.toLowerCase().includes(query) ||
+                surah.arabic.includes(query) ||
+                surah.meaning.toLowerCase().includes(query)
+            );
+
+            const container = document.getElementById('surahListContainer');
+            container.innerHTML = filtered.map(surah => `
+                <div class="surah-item" onclick="openSurah(${surah.number})">
+                    <div class="surah-number">${surah.number}</div>
+                    <div class="surah-info">
+                        <div class="surah-name">${surah.name}</div>
+                        <div class="surah-meta">${surah.type} • ${surah.ayahs} Ayat</div>
+                    </div>
+                    <div class="surah-arabic">${surah.arabic}</div>
+                </div>
+            `).join('');
+        });
+
+        // ========== INITIALIZATION ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update countdown every second
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // Render initial data
+            renderWeeklyHistory();
+            renderPrayers();
+            renderActivities();
+            renderSurahList();
+            renderCalendar();
+            loadProfile();
+            updateStats();
+        });
     </script>
 </body>
 </html>
