@@ -17,11 +17,12 @@
     <link rel="manifest" href="manifest.json">
     
     <!-- iOS Icons -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23012248;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23024073;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='192' height='192' fill='url(%23grad)' rx='40'/%3E%3Ctext x='96' y='120' font-size='80' text-anchor='middle' fill='%23d1b48c' font-family='Arial, sans-serif' font-weight='bold'%3E✨%3C/text%3E%3C/svg%3E">
+   <link rel="apple-touch-icon" href="logo.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E✨%3C/text%3E%3C/svg%3E">
-    
+    <link rel="icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -237,6 +238,10 @@
             border-radius: 50%;
             cursor: pointer;
             position: relative;
+            touch-action: manipulation;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+flex-shrink: 0;
+
         }
 
         .check-circle.checked {
@@ -268,6 +273,10 @@
             padding: 15px;
             text-align: center;
             cursor: pointer;
+            touch-action: manipulation;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+user-select: none;
+
         }
 
         .activity-item.checked {
@@ -874,7 +883,7 @@
         <!-- Beranda Page -->
         <div id="berandaPage" class="page active">
             <div class="header">
-                <h1>✨ Noor Journey ✨</h1>
+                <img src="logo.png" alt="Noor Journey" style="width:160px;height:auto;max-height:80px;object-fit:contain;margin-bottom:5px;" onerror="this.style.display='none'">
                 <p>Perjalanan Ibadahmu Dimulai di Sini</p>
             </div>
 
@@ -1207,23 +1216,23 @@
 
         <!-- Bottom Navigation -->
         <div class="bottom-nav">
-            <div class="nav-item active" onclick="showPage('berandaPage')">
+            <div class="nav-item active" onclick="showPage('berandaPage', this)">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-label">Beranda</div>
             </div>
-            <div class="nav-item" onclick="showPage('quranPage')">
+            <div class="nav-item" onclick="showPage('quranPage', this)">
                 <div class="nav-icon">📖</div>
                 <div class="nav-label">Al-Quran</div>
             </div>
-            <div class="nav-item" onclick="showPage('haidPage')">
+            <div class="nav-item" onclick="showPage('haidPage', this)">
                 <div class="nav-icon">🌙</div>
                 <div class="nav-label">Haid</div>
             </div>
-            <div class="nav-item" onclick="showPage('sedekahPage')">
+            <div class="nav-item" onclick="showPage('sedekahPage', this)">
                 <div class="nav-icon">💝</div>
                 <div class="nav-label">Sedekah</div>
             </div>
-            <div class="nav-item" onclick="showPage('profilPage')">
+            <div class="nav-item" onclick="showPage('profilPage', this)">
                 <div class="nav-icon">👤</div>
                 <div class="nav-label">Profil</div>
             </div>
@@ -1775,72 +1784,57 @@
         }
 
         // ========== NAVIGATION ==========
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Remove active from all nav items
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Add active to clicked nav item
-            event.currentTarget.classList.add('active');
+       function showPage(pageId, clickedEl) {
+    // Sembunyikan semua halaman & nonaktifkan semua icon menu
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    
+    // Tampilkan halaman yang dipilih
+    document.getElementById(pageId).classList.add('active');
+    
+    // Aktifkan warna pada icon menu yang di-klik
+    if (clickedEl) clickedEl.classList.add('active');
+}
         }
+// ========== QURAN FUNCTIONS (NEW API VERSION) ==========
+       const surahCache = {};
+surahCache[1] = ALFATIHAH_AYAHS.map(a => ({
+    nomorAyat: a.number, teksArab: a.arabic, teksLatin: '', teksIndonesia: a.translation
+}));
 
-        // ========== QURAN FUNCTIONS ==========
-        function openSurah(number) {
-            const surah = SURAH_DATA.find(s => s.number === number);
-            if (!surah) return;
+async function openSurah(number) {
+    const surah = SURAH_DATA.find(s => s.number === number);
+    if (!surah) return;
+    document.getElementById('surahDetailTitle').textContent = surah.name;
+    document.getElementById('surahDetailMeta').textContent = `${surah.type} • ${surah.ayahs} Ayat`;
+    document.getElementById('quranPage').classList.remove('active');
+    document.getElementById('surahDetailPage').classList.add('active');
+    const container = document.getElementById('ayahListContainer');
+    if (surahCache[number]) { renderAyahs(container, surahCache[number], number); updateQuranStats(); return; }
+    container.innerHTML = `<div style="text-align:center;padding:60px 20px;color:#666"><div style="width:40px;height:40px;border:4px solid #e0e0e0;border-top-color:#d1b48c;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px"></div><p>Memuat ayat...</p></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style>`;
+    try {
+        const res = await fetch(`https://equran.id/api/v2/surat/${number}`);
+        const data = await res.json();
+        if (data.code === 200 && data.data?.ayat) {
+            surahCache[number] = data.data.ayat;
+            renderAyahs(container, data.data.ayat, number);
+        } else throw new Error('Invalid response');
+    } catch (e) {
+        container.innerHTML = `<div style="text-align:center;padding:40px;color:#999"><p>📶 Gagal memuat. Cek koneksi internet.</p><button onclick="openSurah(${number})" style="background:#012248;color:white;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;margin-top:15px;touch-action:manipulation">🔄 Coba Lagi</button></div>`;
+        return;
+    }
+    updateQuranStats();
+}
 
-            document.getElementById('surahDetailTitle').textContent = surah.name;
-            document.getElementById('surahDetailMeta').textContent = `${surah.type} • ${surah.ayahs} Ayat`;
+function renderAyahs(container, ayat, surahNumber) {
+    let html = '';
+    if (surahNumber !== 1 && surahNumber !== 9) {
+        html += `<div class="ayah-item"><div class="ayah-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div><div class="ayah-translation">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</div></div>`;
+    }
+    html += ayat.map(a => `<div class="ayah-item"><div class="ayah-number">Ayat ${a.nomorAyat}</div><div class="ayah-arabic">${a.teksArab}</div><div class="ayah-translation">${a.teksIndonesia}</div></div>`).join('');
+    container.innerHTML = html;
+}
 
-            const container = document.getElementById('ayahListContainer');
-            
-            if (number === 1) {
-                // Al-Fatihah with full ayahs
-                container.innerHTML = ALFATIHAH_AYAHS.map(ayah => `
-                    <div class="ayah-item">
-                        <div class="ayah-number">Ayat ${ayah.number}</div>
-                        <div class="ayah-arabic">${ayah.arabic}</div>
-                        <div class="ayah-translation">${ayah.translation}</div>
-                    </div>
-                `).join('');
-            } else {
-                // Other surahs - show surah info with arabic
-                let ayahsHTML = '';
-                for (let i = 1; i <= surah.ayahs; i++) {
-                    ayahsHTML += `
-                        <div class="ayah-item">
-                            <div class="ayah-number">Ayat ${i}</div>
-                            <div class="ayah-arabic">${surah.arabic}</div>
-                            <div class="ayah-translation" style="color: #999; font-style: italic;">Teks Arab untuk ayat ${i} dari surah ${surah.name}</div>
-                        </div>
-                    `;
-                }
-                
-                container.innerHTML = `
-                    <div class="ayah-item">
-                        <div class="ayah-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-                        <div class="ayah-translation">Dengan nama Allah Yang Maha Pengasih, Maha Penyayang.</div>
-                    </div>
-                    ${ayahsHTML}
-                `;
-            }
-
-            // Switch to detail page
-            document.getElementById('quranPage').classList.remove('active');
-            document.getElementById('surahDetailPage').classList.add('active');
-
-            // Track reading
-            updateQuranStats();
-        }
 
         function switchQuranTab(tab) {
             const surahTab = document.querySelector('.tab:nth-child(1)');
