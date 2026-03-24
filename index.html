@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noor Journey - Perjalanan Ibadahmu</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Aplikasi pendamping ibadah harian untuk melacak sholat, membaca Al-Quran, mengelola siklus haid, dan bersedekah">
+    <meta name="theme-color" content="#012248">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Noor Journey">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23012248;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23024073;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='192' height='192' fill='url(%23grad)' rx='40'/%3E%3Ctext x='96' y='120' font-size='80' text-anchor='middle' fill='%23d1b48c' font-family='Arial, sans-serif' font-weight='bold'%3E✨%3C/text%3E%3C/svg%3E">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='80' font-size='80'%3E✨%3C/text%3E%3C/svg%3E">
+    
     <style>
         * {
             margin: 0;
@@ -2153,7 +2171,129 @@
             renderCalendar();
             loadProfile();
             updateStats();
+
+            // Register Service Worker for PWA
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('✅ Service Worker registered:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('❌ Service Worker registration failed:', error);
+                    });
+            }
         });
+
+        // ========== PWA INSTALL PROMPT ==========
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+            
+            // Show install button/banner (optional)
+            showInstallPromotion();
+        });
+
+        function showInstallPromotion() {
+            // Create install banner
+            const banner = document.createElement('div');
+            banner.id = 'installBanner';
+            banner.style.cssText = `
+                position: fixed;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                max-width: 380px;
+                width: 90%;
+                background: linear-gradient(135deg, #012248 0%, #024073 100%);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 15px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                animation: slideUp 0.3s ease;
+            `;
+            
+            banner.innerHTML = `
+                <div style="flex: 1;">
+                    <div style="font-weight: bold; margin-bottom: 3px;">📱 Install Noor Journey</div>
+                    <div style="font-size: 13px; opacity: 0.9;">Akses lebih cepat & bisa offline!</div>
+                </div>
+                <button onclick="installPWA()" style="
+                    background: #d1b48c;
+                    color: #012248;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    font-size: 14px;
+                ">Install</button>
+                <button onclick="dismissInstallBanner()" style="
+                    background: transparent;
+                    color: white;
+                    border: 1px solid rgba(255,255,255,0.3);
+                    padding: 10px 15px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-size: 14px;
+                ">✕</button>
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideUp {
+                    from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+                    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(banner);
+        }
+
+        function installPWA() {
+            if (!deferredPrompt) return;
+            
+            // Show the install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('✅ User accepted the install prompt');
+                } else {
+                    console.log('❌ User dismissed the install prompt');
+                }
+                deferredPrompt = null;
+                dismissInstallBanner();
+            });
+        }
+
+        function dismissInstallBanner() {
+            const banner = document.getElementById('installBanner');
+            if (banner) {
+                banner.style.animation = 'slideUp 0.3s ease reverse';
+                setTimeout(() => banner.remove(), 300);
+            }
+        }
+
+        // Track if app is installed
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ Noor Journey has been installed!');
+            deferredPrompt = null;
+        });
+
+        // Detect if running as standalone PWA
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('🚀 Running as installed PWA!');
+        }
     </script>
 </body>
 </html>
