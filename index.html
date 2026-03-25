@@ -9,42 +9,47 @@
         :root {
             --primary: #012248;
             --secondary: #d1b48c;
-            --bg-light: #f8f9fa;
-            --text-dark: #2d3436;
+            --accent: #ff6b6b;
+            --white: #ffffff;
+            --gray: #f4f7f6;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--gray); color: #333; line-height: 1.6; }
+        .container { max-width: 428px; margin: 0 auto; background: var(--white); min-height: 100vh; position: relative; padding-bottom: 90px; }
 
-        .container { max-width: 428px; margin: 0 auto; background: white; min-height: 100vh; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
-
-        /* Header Premium */
-        .header {
+        /* Header Modern */
+        .app-header {
             background: linear-gradient(135deg, var(--primary) 0%, #024073 100%);
-            color: white;
-            padding: 30px 20px;
+            color: var(--white);
+            padding: 40px 20px;
             text-align: center;
-            border-bottom-left-radius: 25px;
-            border-bottom-right-radius: 25px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* Countdown Card */
-        .card-timer {
-            background: white;
-            margin: -30px 20px 20px;
-            padding: 20px;
+        .streak-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        /* Countdown Card ala Amaly */
+        .countdown-card {
+            background: var(--white);
+            margin: -30px 20px 20px;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             text-align: center;
         }
 
-        .timer-val { font-size: 32px; font-weight: 800; color: var(--primary); letter-spacing: 1px; }
+        .time-val { font-size: 38px; font-weight: 800; color: var(--primary); }
+        .next-prayer { color: var(--secondary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
         /* Navigation */
         .bottom-nav {
@@ -54,197 +59,202 @@
             transform: translateX(-50%);
             width: 100%;
             max-width: 428px;
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
+            background: var(--white);
             display: flex;
-            padding: 12px 0;
+            justify-content: space-around;
+            padding: 15px 0;
             border-top: 1px solid #eee;
             z-index: 1000;
         }
 
-        .nav-item { flex: 1; text-align: center; color: #b2bec3; font-size: 10px; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--primary); font-weight: bold; }
-        .nav-icon { font-size: 22px; display: block; margin-bottom: 2px; }
+        .nav-btn { flex: 1; text-align: center; color: #a4b0be; cursor: pointer; transition: 0.3s; font-size: 11px; }
+        .nav-btn.active { color: var(--primary); font-weight: bold; }
+        .nav-icon { font-size: 24px; display: block; margin-bottom: 3px; }
 
-        /* Content Pages */
-        .page { display: none; padding: 20px; padding-bottom: 100px; animation: fadeIn 0.4s ease; }
+        /* Page System */
+        .page { display: none; padding: 20px; animation: slideUp 0.3s ease-out; }
         .page.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Prayer Items */
+        /* Prayer Row */
         .prayer-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            background: #fff;
-            padding: 16px;
+            background: var(--white);
+            padding: 18px;
             border-radius: 15px;
             margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
             border: 1px solid #f1f2f6;
         }
 
-        .check-btn {
-            width: 28px;
-            height: 28px;
+        .check-box {
+            width: 30px;
+            height: 30px;
             border: 2px solid var(--secondary);
-            border-radius: 8px;
+            border-radius: 10px;
+            margin-left: auto;
             cursor: pointer;
+            transition: 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .check-btn.active { background: var(--secondary); color: white; }
+        .check-box.done { background: var(--secondary); border-color: var(--secondary); }
+        .check-box.done::after { content: '✓'; color: white; font-weight: bold; }
 
         /* Quran List */
-        .surah-card {
+        .surah-item {
             display: flex;
             align-items: center;
-            padding: 15px;
-            background: white;
-            border-bottom: 1px solid #eee;
+            padding: 18px;
+            background: var(--white);
+            border-radius: 15px;
+            margin-bottom: 10px;
             cursor: pointer;
+            border: 1px solid #f1f2f6;
         }
 
-        .surah-num {
-            width: 35px;
-            height: 35px;
-            background: var(--bg-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 12px;
-            margin-right: 15px;
-        }
-
-        /* Ayah Text */
-        .ayah-box { padding: 20px; border-bottom: 1px solid #eee; }
-        .arabic { font-size: 28px; text-align: right; color: var(--primary); margin-bottom: 15px; line-height: 2; }
+        .surah-no { width: 40px; font-weight: bold; color: var(--secondary); }
+        
+        /* Modal & Calendar */
+        .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
+        .cal-day { padding: 10px 0; border-radius: 50%; font-size: 13px; }
+        .cal-day.period { background: var(--accent); color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div id="beranda" class="page active">
-        <div class="header">
-            <h2 style="font-weight: 800;">Noor Journey</h2>
-            <p style="opacity: 0.8; font-size: 13px;">Sudahkah kamu bersyukur hari ini?</p>
-        </div>
-        
-        <div class="card-timer">
-            <p style="font-size: 12px; color: #636e72; margin-bottom: 5px;">Waktu Menuju <span id="next-prayer-name">Shubuh</span></p>
-            <div class="timer-val" id="timer-display">00:00:00</div>
+    <div id="homePage" class="page active">
+        <div class="app-header">
+            <h1>Noor Journey</h1>
+            <div class="streak-badge">🔥 <span id="streakCount">0</span> Hari Beruntun</div>
         </div>
 
-        <h3 style="margin-bottom: 15px; font-size: 16px;">Jurnal Sholat</h3>
+        <div class="countdown-card">
+            <div class="next-prayer" id="p-name">Memuat...</div>
+            <div class="time-val" id="p-timer">00:00:00</div>
+        </div>
+
+        <h3 style="margin-bottom: 15px; color: var(--primary);">Jurnal Ibadah</h3>
         <div id="prayer-list"></div>
     </div>
 
-    <div id="quran" class="page">
-        <h2 style="color: var(--primary); margin-bottom: 20px;">Al-Quran</h2>
-        <div id="surah-container"></div>
+    <div id="quranPage" class="page">
+        <h2 style="margin-bottom: 20px; color: var(--primary);">Al-Quran</h2>
+        <input type="text" id="qSearch" placeholder="Cari Surah..." style="width:100%; padding:15px; border-radius:15px; border:1px solid #eee; margin-bottom:20px;">
+        <div id="surah-list"></div>
     </div>
 
-    <div id="surah-detail" class="page">
-        <button onclick="changeTab('quran')" style="border:none; background:none; color: var(--primary); font-weight:bold; margin-bottom:20px;">← Kembali</button>
-        <h2 id="detail-title"></h2>
-        <div id="ayah-container"></div>
+    <div id="detailPage" class="page">
+        <button onclick="navTo('quranPage')" style="border:none; background:none; color:var(--primary); font-weight:bold; cursor:pointer;">← Kembali</button>
+        <h2 id="s-title" style="margin-top:15px; text-align:center; color:var(--primary);"></h2>
+        <div id="ayah-list" style="margin-top:30px;"></div>
     </div>
 
-    <div id="haid" class="page">
-        <h2 style="color: var(--primary); margin-bottom: 20px;">Pelacak Haid</h2>
-        <div style="background: white; padding: 20px; border-radius: 20px; text-align:center; border: 1px solid #eee;">
-            <p>Fitur Kalender Sedang Disinkronkan</p>
+    <div id="haidPage" class="page">
+        <h2 style="margin-bottom: 20px; color: var(--primary);">Kalender Haid</h2>
+        <div style="background: white; padding: 20px; border-radius: 20px; border: 1px solid #eee;">
+            <div class="calendar" id="calendar"></div>
+            <button onclick="alert('Fitur catat haid sedang disiapkan')" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:12px; margin-top:20px; font-weight:bold;">+ Catat Haid</button>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <div class="nav-item active" onclick="changeTab('beranda')"><span class="nav-icon">🏠</span>Beranda</div>
-        <div class="nav-item" onclick="changeTab('quran')"><span class="nav-icon">📖</span>Quran</div>
-        <div class="nav-item" onclick="changeTab('haid')"><span class="nav-icon">🌙</span>Haid</div>
+        <div class="nav-btn active" onclick="navTo('homePage')"><span class="nav-icon">🏠</span>Beranda</div>
+        <div class="nav-btn" onclick="navTo('quranPage')"><span class="nav-icon">📖</span>Quran</div>
+        <div class="nav-btn" onclick="navTo('haidPage')"><span class="nav-icon">🌙</span>Haid</div>
     </nav>
 </div>
 
 <script>
-    const prayers = [
-        { id: 'shubuh', name: 'Shubuh', time: '04:35' },
+    const PRAYERS = [
+        { id: 'subuh', name: 'Shubuh', time: '04:35' },
         { id: 'dzuhur', name: 'Dzuhur', time: '12:05' },
-        { id: 'ashar', name: 'Ashar', time: '15:15' },
-        { id: 'maghrib', name: 'Maghrib', time: '18:10' },
-        { id: 'isya', name: 'Isya', time: '19:20' }
+        { id: 'ashar', name: 'Ashar', time: '15:20' },
+        { id: 'maghrib', name: 'Maghrib', time: '18:15' },
+        { id: 'isya', name: 'Isya', time: '19:30' }
     ];
 
-    function changeTab(tabId) {
+    // Navigation System
+    function navTo(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
+        document.getElementById(pageId).classList.add('active');
         
-        document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-        const activeNav = Array.from(document.querySelectorAll('.nav-item')).find(n => n.innerText.toLowerCase().includes(tabId.replace('beranda', 'beranda')));
-        if(activeNav) activeNav.classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.innerHTML.includes(pageId === 'homePage' ? 'Beranda' : pageId === 'quranPage' ? 'Quran' : 'Haid'));
+        if(activeBtn) activeBtn.classList.add('active');
+        window.scrollTo(0,0);
     }
 
+    // Prayer List Logic
     function renderPrayers() {
-        const container = document.getElementById('prayer-list');
-        container.innerHTML = prayers.map(p => `
+        const list = document.getElementById('prayer-list');
+        list.innerHTML = PRAYERS.map(p => `
             <div class="prayer-row">
                 <div>
-                    <div style="font-weight:600;">${p.name}</div>
-                    <div style="font-size:12px; color:#b2bec3;">Pukul ${p.time}</div>
+                    <div style="font-weight:700; color:var(--primary);">${p.name}</div>
+                    <div style="font-size:12px; color:#a4b0be;">${p.time} WIB</div>
                 </div>
-                <div class="check-btn" onclick="this.classList.toggle('active')">✓</div>
+                <div class="check-box" onclick="this.classList.toggle('done')"></div>
             </div>
         `).join('');
     }
 
-    async function loadSurah() {
-        const res = await fetch('https://equran.id/api/v2/surat');
-        const data = await res.json();
-        const container = document.getElementById('surah-container');
-        container.innerHTML = data.data.map(s => `
-            <div class="surah-card" onclick="viewSurah(${s.nomor})">
-                <div class="surah-num">${s.nomor}</div>
-                <div style="flex:1">
-                    <div style="font-weight:600;">${s.namaLatin}</div>
-                    <div style="font-size:11px; color:#b2bec3;">${s.arti} • ${s.jumlahAyat} Ayat</div>
+    // Quran Logic with Fallback
+    async function getSurahs() {
+        try {
+            const res = await fetch('https://equran.id/api/v2/surat');
+            const data = await res.json();
+            document.getElementById('surah-list').innerHTML = data.data.map(s => `
+                <div class="surah-item" onclick="openSurah(${s.nomor})">
+                    <div class="surah-no">${s.nomor}</div>
+                    <div style="flex:1">
+                        <div style="font-weight:700;">${s.namaLatin}</div>
+                        <div style="font-size:11px; color:#a4b0be;">${s.arti} • ${s.jumlahAyat} Ayat</div>
+                    </div>
+                    <div style="font-size:20px; color:var(--primary); font-family: 'Amiri', serif;">${s.nama}</div>
                 </div>
-                <div style="font-size:20px; color:var(--primary);">${s.nama}</div>
-            </div>
-        `).join('');
+            `).join('');
+        } catch (e) {
+            console.error("API Error, please check connection.");
+        }
     }
 
-    async function viewSurah(no) {
-        changeTab('surah-detail');
-        const container = document.getElementById('ayah-container');
-        container.innerHTML = '<p style="text-align:center; padding:50px;">Memuat ayat...</p>';
+    async function openSurah(no) {
+        navTo('detailPage');
+        const container = document.getElementById('ayah-list');
+        container.innerHTML = '<p style="text-align:center;">Membuka lembaran suci...</p>';
         
         try {
             const res = await fetch(`https://equran.id/api/v2/surat/${no}`);
             const data = await res.json();
-            document.getElementById('detail-title').innerText = data.data.namaLatin;
+            document.getElementById('s-title').innerText = data.data.namaLatin;
             container.innerHTML = data.data.ayat.map(a => `
-                <div class="ayah-box">
-                    <div class="arabic">${a.teksArab}</div>
-                    <div style="font-size:14px; color:#636e72;">${a.nomorAyat}. ${a.teksIndonesia}</div>
+                <div style="padding: 25px 0; border-bottom: 1px solid #eee;">
+                    <div style="font-size: 28px; text-align: right; color: var(--primary); line-height: 2.2; margin-bottom: 15px;">${a.teksArab}</div>
+                    <div style="font-size: 14px; color: #57606f;">${a.nomorAyat}. ${a.teksIndonesia}</div>
                 </div>
             `).join('');
         } catch (e) {
-            container.innerHTML = '<p>Gagal memuat ayat. Coba lagi nanti.</p>';
+            container.innerHTML = '<p>Gagal memuat. Periksa koneksi internet kamu.</p>';
         }
     }
 
-    // Timer sederhana
-    setInterval(() => {
+    // Timer Logic
+    function updateTimer() {
         const now = new Date();
-        document.getElementById('timer-display').innerText = now.toLocaleTimeString('id-ID');
-    }, 1000);
+        document.getElementById('p-timer').innerText = now.toLocaleTimeString('id-ID');
+        document.getElementById('p-name').innerText = "Waktu Sekarang";
+    }
 
     // Init
     window.onload = () => {
         renderPrayers();
-        loadSurah();
+        getSurahs();
+        setInterval(updateTimer, 1000);
     };
 </script>
 
