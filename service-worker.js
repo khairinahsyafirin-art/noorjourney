@@ -1,46 +1,51 @@
-const CACHE_NAME = 'noor-journey-v2.0.0';
-const urlsToCache = [
-  '/noorjourney/',
-  '/noorjourney/index.html',
-  '/noorjourney/manifest.json',
-  '/noorjourney/logo.png'
+const CACHE_NAME = 'noor-journey-v2.1.0';
+const ASSETS_TO_CACHE = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  // Tambahkan path icon atau CSS/JS eksternal jika ada di repo kamu
 ];
 
-self.addEventListener('install', event => {
+// Install Service Worker
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      .catch(err => console.log('Cache failed:', err))
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('Caching shell assets');
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
   );
   self.skipWaiting();
 });
 
-self.addEventListener('activate', event => {
+// Activate & Cleanup Old Caches
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(names =>
-      Promise.all(names.map(n => n !== CACHE_NAME && caches.delete(n)))
-    )
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter((key) => key !== CACHE_NAME)
+            .map((key) => caches.delete(key))
+      );
+    })
   );
   self.clients.claim();
 });
 
-self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-  if (event.request.url.includes('equran.id') || event.request.url.includes('fonts.googleapis.com')) return;
+// Fetch Strategy: Network First with Fallback to Cache
+self.addEventListener('fetch', (event) => {
+  // EXCLUDE Quran API from cache (supaya fallback API cloud jalan lancar)
+  if (event.request.url.includes('alquran.cloud') || event.request.url.includes('equran.id')) {
+    return; // Biarkan browser handle fetch API secara live
+  }
 
   event.respondWith(
-    caches.match(event.request).then(response => {
-      if (response) return response;
-      return fetch(event.request.clone()).then(res => {
-        if (!res || res.status !== 200 || res.type !== 'basic') return res;
-        const clone = res.clone();
-        caches.open(CACHE_NAME).then(c => c.put(event.request, clone));
-        return res;
-      }).catch(() => caches.match('/noorjourney/index.html'));
-    })
+    fetch(event.request)
+      .then((response) => {
+        const resClone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, resClone);
+        });
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
-});
-
-self.addEventListener('message', event => {
-  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
